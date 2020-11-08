@@ -10,10 +10,10 @@ node-bptf-listings uses [tf2-schema](https://github.com/Nicklason/node-tf2-schem
 
 ## Installation
 
-Install it from [npm](https://www.npmjs.com/package/bptf-listings):
+Install it from [npm](https://www.npmjs.com/package/bptf-listings-2):
 
-    npm install bptf-listings
+    npm install bptf-listings-2
 
 ## Usage
 
-See the [examples](https://github.com/Nicklason/node-bptf-listings/tree/master/examples)
+See the [examples](https://github.com/idinium96/node-bptf-listings-2/tree/master/examples)
