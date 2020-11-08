@@ -1,7 +1,7 @@
 {
   "name": "@idinium96/bptf-listings",
   "version": "1.0.0",
-  "description": "Manage listings on backpack.tf",
+  "description": "Manage listings on backpack.tf, originally made by Nicklason, modified by IdiNium.",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon app.js",
