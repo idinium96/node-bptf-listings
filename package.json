@@ -1,5 +1,5 @@
 {
-  "name": "@idinium96/bptf-listings",
+  "name": "bptf-listings-2",
   "version": "1.0.0",
   "description": "Manage listings on backpack.tf, originally made by Nicklason, modified by IdiNium.",
   "main": "index.js",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/idinium96/node-bptf-listings.git"
+    "url": "git+https://github.com/idinium96/node-bptf-listings-2.git"
   },
   "author": "Nicklas Marc Pedersen/IdiNium",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/idinium96/node-bptf-listings/issues"
+    "url": "https://github.com/idinium96/node-bptf-listings-2/issues"
   },
-  "homepage": "https://github.com/idinium96/node-bptf-listings#readme",
+  "homepage": "https://github.com/idinium96/node-bptf-listings-2#readme",
   "dependencies": {
     "@nicklason/request-retry": "^1.1.2",
     "async": "^3.2.0",
