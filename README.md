@@ -1,6 +1,6 @@
 # node-bptf-listings-2
 
-This module is a copy from original [`node-bptf-listing`](https://github.com/Nicklason/node-bptf-listings), with improved Backpack.tf inventory refresh and support buy orders for targeted items (Crates, Unusualifier, Strangifier, Fabricator, Killstreak Kit and Chemistry Set).
+This module is a copy from original [`node-bptf-listing`](https://github.com/Nicklason/node-bptf-listings) by [Nicklason](https://github.com/Nicklason), with improved Backpack.tf inventory refresh and support buy orders for targeted items (Crates, Unusualifier, Strangifier, Fabricator, Killstreak Kit and Chemistry Set).
 
 ## Getting started
 
