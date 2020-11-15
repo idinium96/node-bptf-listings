@@ -772,8 +772,6 @@ class ListingManager {
 
         if (item.effect !== null) {
             formatted.priceindex = item.effect;
-        } else if (item.craftnumber !== null) {
-            formatted.priceindex = item.craftnumber;
         } else if (item.crateseries !== null) {
             formatted.priceindex = item.crateseries;
         } else if ((name.toLowerCase().includes('unusualifier') || name.toLowerCase().includes('strangifier')) && item.target !== null) {
