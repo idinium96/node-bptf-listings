@@ -751,15 +751,15 @@ class ListingManager {
 
         const formatted = {
             item_name: 
-                name.toLowerCase().includes('unusualifier')
+                name.toLowerCase().includes('unusualifier') && item.target !== null
                     ? 'Unusualifier'
-                      : name.toLowerCase().includes('strangifier')
+                      : name.toLowerCase().includes('strangifier') && item.target !== null
                       ? 'Strangifier'
-                      : name.toLowerCase().includes('fabricator')
+                      : name.toLowerCase().includes('fabricator') && item.outputQuality !== null && item.output !== null && item.target !== null
                       ? 'Fabricator'
-                      : name.toLowerCase().includes('kit')
+                      : name.toLowerCase().includes('kit') && item.killstreak !== null && item.target !== null
                       ? 'Kit'
-                      : name.toLowerCase().includes('chemistry set')
+                      : name.toLowerCase().includes('chemistry set') && (item.output !== null || item.target !== null) && item.outputQuality !== null
                       ? 'Chemistry Set'
                       : name
         };
