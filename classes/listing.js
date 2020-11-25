@@ -15,6 +15,7 @@ class Listing {
      * @param {Number} listing.offers
      * @param {Number} listing.buyout
      * @param {String} listing.details
+     * @param {String} listing.promoted
      * @param {Number} listing.created
      * @param {Number} listing.bump
      * @param {Object} manager Instance of bptf-listings
@@ -28,6 +29,7 @@ class Listing {
         this.currencies = new Currencies(listing.currencies);
         this.offers = listing.offers === 1;
         this.buyout = listing.buyout === 1;
+        this.promoted = listing.promoted;
         this.details = listing.details;
         this.created = moment.unix(listing.created);
         this.bump = moment.unix(listing.bump);
@@ -119,8 +121,10 @@ class Listing {
 
         if (this.intent === 0) {
             listing.sku = this.getSKU();
+            listing.promoted = 0;
         } else {
             listing.id = this.item.id;
+            listing.promoted = this.item.promoted;
         }
 
         ['currencies', 'details', 'offers', 'buyout'].forEach((property) => {
