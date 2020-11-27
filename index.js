@@ -1,7 +1,7 @@
 const async = require('async');
 const SteamID = require('steamid');
 const request = require('@nicklason/request-retry');
-const SKU = require('tf2-sku');
+const SKU = require('tf2-sku-2');
 const isObject = require('isobject');
 const moment = require('moment');
 
