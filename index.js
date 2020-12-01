@@ -1,9 +1,9 @@
 const async = require('async');
 const SteamID = require('steamid');
-const request = require('@nicklason/request-retry');
+const request = require('request-retry-dayjs');
 const SKU = require('tf2-sku-2');
 const isObject = require('isobject');
-const moment = require('moment');
+const dayjs = require('dayjs');
 
 const inherits = require('util').inherits;
 const EventEmitter = require('events').EventEmitter;
@@ -155,7 +155,7 @@ class ListingManager {
                 return callback(new Error(response.status + ' (' + response.statusText + ')'));
             }
 
-            const time = moment.unix(body.last_update);
+            const time = dayjs.unix(body.last_update);
 
             if (this._lastInventoryUpdate === null) {
                 this._lastInventoryUpdate = time;
