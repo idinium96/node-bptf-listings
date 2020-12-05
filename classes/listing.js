@@ -15,7 +15,7 @@ class Listing {
      * @param {Number} listing.offers
      * @param {Number} listing.buyout
      * @param {String} listing.details
-     * @param {String} listing.promoted
+     * @param {Number} listing.promoted
      * @param {Number} listing.created
      * @param {Number} listing.bump
      * @param {Object} manager Instance of bptf-listings
