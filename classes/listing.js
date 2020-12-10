@@ -2,6 +2,7 @@ const SteamID = require('steamid');
 const Currencies = require('tf2-currencies');
 const dayjs = require('dayjs');
 const SKU = require('tf2-sku-2');
+import { crates } from '../lib/crates';
 
 class Listing {
     /**
@@ -81,6 +82,18 @@ class Listing {
             }
 
             item[attribute] = attributes[attribute];
+        }
+
+        if (item.defindex == 5022 && Object.keys(crates.is5022).includes(this.item.name)) {
+            item.crateseries = crates.is5022[this.item.name];
+        } else if (item.defindex == 5041 && Object.keys(crates.is5041).includes(this.item.name)) {
+            item.crateseries = crates.is5041[this.item.name];
+        } else if (item.defindex == 5045 && Object.keys(crates.is5045).includes(this.item.name)) {
+            item.crateseries = crates.is5045[this.item.name];
+        } else if (item.defindex == 5068 && Object.keys(crates.is5068).includes(this.item.name)) {
+            item.crateseries = crates.is5068[this.item.name];
+        } else if (Object.keys(crates.isOther).includes(item.defindex.toString())) {
+            item.crateseries = crates.isOther[item.defindex];
         }
 
         // TODO: Have the item go through a "fix item" function (maybe not needed?)
