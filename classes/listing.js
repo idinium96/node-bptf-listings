@@ -2,7 +2,6 @@ const SteamID = require('steamid');
 const Currencies = require('tf2-currencies');
 const dayjs = require('dayjs');
 const SKU = require('tf2-sku-2');
-const c = require('../lib/crates');
 
 class Listing {
     /**
@@ -82,18 +81,6 @@ class Listing {
             }
 
             item[attribute] = attributes[attribute];
-        }
-
-        if (item.defindex == 5022 && Object.keys(c.crates.is5022).includes(this.item.name)) {
-            item.crateseries = c.crates.is5022[this.item.name];
-        } else if (item.defindex == 5041 && Object.keys(c.crates.is5041).includes(this.item.name)) {
-            item.crateseries = c.crates.is5041[this.item.name];
-        } else if (item.defindex == 5045 && Object.keys(c.crates.is5045).includes(this.item.name)) {
-            item.crateseries = c.crates.is5045[this.item.name];
-        } else if (item.defindex == 5068 && Object.keys(c.crates.is5068).includes(this.item.name)) {
-            item.crateseries = c.crates.is5068[this.item.name];
-        } else if (Object.keys(c.crates.isOther).includes(item.defindex.toString())) {
-            item.crateseries = c.crates.isOther[item.defindex];
         }
 
         // TODO: Have the item go through a "fix item" function (maybe not needed?)
@@ -183,6 +170,8 @@ class Listing {
                 attributes.wear = parseInt(parseFloat(attribute.value) * 5);
             } else if (attribute.defindex == 214) {
                 attributes.quality2 = 11;
+            } else if (attribute.defindex == 187) {
+                attributes.crateseries = attribute.float_value;
             }
         }
 
