@@ -159,19 +159,34 @@ class Listing {
         for (let i = 0; i < this.item.attributes.length; i++) {
             const attribute = this.item.attributes[i];
             if (attribute.defindex == 2025) {
+                // Killstreak tier
                 attributes.killstreak = attribute.float_value;
             } else if (attribute.defindex == 2027) {
+                // Australium
                 attributes.australium = true;
             } else if (attribute.defindex == 134) {
+                // Unusual effect for cosmetics
                 attributes.effect = attribute.float_value;
+            } else if (attribute.defindex == 2041) {
+                // Unusual effect for Taunt
+                attributes.effect = attribute.value;
             } else if (attribute.defindex == 834) {
+                // War paint/Skins
                 attributes.paintkit = attribute.value;
             } else if (attribute.defindex == 725) {
+                // Wear
                 attributes.wear = parseInt(parseFloat(attribute.value) * 5);
             } else if (attribute.defindex == 214) {
+                // Strange as second quality
                 attributes.quality2 = 11;
             } else if (attribute.defindex == 187) {
+                // Crates
                 attributes.crateseries = attribute.float_value;
+            } else if (attribute.defindex == 2012) {
+                // Target - Unusualifier/Strangifier
+                // Might also used for Fabricator, Killstreak Kit and
+                // Chemistry Set Strangifier
+                attributes.target = attribute.float_value;
             }
         }
 
