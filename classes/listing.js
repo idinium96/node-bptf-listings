@@ -71,6 +71,17 @@ class Listing {
 
         if (schemaItemByName !== undefined) {
             item.defindex = schemaItemByName.defindex;
+
+            if (this.item.name.includes('Chemistry Set')) {
+                if (this.item.name.includes("Collector's Festive") && this.item.name.includes('Chemistry Set')) {
+                    item.defindex = 20007;
+                } else if (this.item.name.includes("Collector's") && this.item.name.includes('Chemistry Set')) {
+                    item.defindex = 20006;
+                } else {
+                    item.defindex = 20005;
+                }
+            }
+            
         }
 
         const attributes = this._parseAttributes();
@@ -159,7 +170,7 @@ class Listing {
         for (let i = 0; i < this.item.attributes.length; i++) {
             const attribute = this.item.attributes[i];
             if (attribute.defindex == 2025) {
-                // Killstreak tier
+                // Killstreak tier/Killstreak Kit
                 attributes.killstreak = attribute.float_value;
             } else if (attribute.defindex == 2027) {
                 // Australium
@@ -183,10 +194,34 @@ class Listing {
                 // Crates
                 attributes.crateseries = attribute.float_value;
             } else if (attribute.defindex == 2012) {
-                // Target - Unusualifier/Strangifier
-                // Might also used for Fabricator, Killstreak Kit and
-                // Chemistry Set Strangifier
+                // Target - Unusualifier/Strangifier/Killstreak Kit
                 attributes.target = attribute.float_value;
+            } else if (
+                    [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007].includes(attribute.defindex) &&
+                    attribute.is_output == true
+            ) {
+                if (attribute.attributes === undefined) {
+                    // Chemistry Set Collector's - getting output and outputQuality
+                    attributes.output = parseInt(attribute.itemdef);
+                    attributes.outputQuality = parseInt(attribute.quality);
+                } else {
+                    // Chemistry Set Strangifier and Killstreak Fabricator Kit: getting output, outputQuality and target
+                    attributes.output = attribute.itemdef;
+                    attributes.outputQuality = attribute.quality;
+
+                    const attributes2 = attribute.attributes;
+                    for (let i = 0; i < attributes2.length; i++) {
+                        const attributes2Element = attributes2[i];
+                        if (attributes2Element.defindex == 2012) {
+                            const value = attributes2Element.float_value;
+                            if (typeof value === 'string') {
+                                attributes.target = parseInt(value);
+                            } else {
+                                attributes.target = value;
+                            }
+                        }
+                    }
+                }
             }
         }
 

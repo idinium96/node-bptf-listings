@@ -788,6 +788,11 @@ class ListingManager {
         } else if (name.toLowerCase().includes('chemistry set')) {
             // Chemistry Set Collector's (item.output)
             // Chemistry Set Strangifier (item.target)
+            // if (item.target === null) {
+            //     formatted.priceindex = `${item.output}-${item.outputQuality}`;
+            // } else {
+            //     formatted.priceindex = `${item.output}-${item.outputQuality}-${item.target}`;
+            // }
             formatted.priceindex = `${item.target === null ? item.output : item.target}-${item.outputQuality}`
         }
 
