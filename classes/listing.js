@@ -71,17 +71,6 @@ class Listing {
 
         if (schemaItemByName !== undefined) {
             item.defindex = schemaItemByName.defindex;
-
-            if (this.item.name.includes('Chemistry Set')) {
-                if (this.item.name.includes("Collector's Festive") && this.item.name.includes('Chemistry Set')) {
-                    item.defindex = 20007;
-                } else if (this.item.name.includes("Collector's") && this.item.name.includes('Chemistry Set')) {
-                    item.defindex = 20006;
-                } else {
-                    item.defindex = 20005;
-                }
-            }
-            
         }
 
         const attributes = this._parseAttributes();
@@ -95,6 +84,22 @@ class Listing {
         }
 
         // TODO: Have the item go through a "fix item" function (maybe not needed?)
+
+        if (this.item.name.includes('Chemistry Set')) {
+            if (this.item.name.includes("Collector's Festive") && this.item.name.includes('Chemistry Set')) {
+                item.defindex = 20007;
+            } else if (this.item.name.includes("Collector's") && this.item.name.includes('Chemistry Set')) {
+                item.defindex = 20006;
+            } else {
+                item.defindex = 20005;
+            }
+        } else if (this.item.name.includes('Kit Fabricator')) {
+            if (this.item.name.includes('Professional Killstreak') && this.item.name.includes('Kit Fabricator')) {
+                item.killstreak = 3;
+            } else if (this.item.name.includes('Specialized Killstreak') && this.item.name.includes('Kit Fabricator')) {
+                item.killstreak = 2;
+            }
+        }
 
         // Adds default values
         return SKU.fromString(SKU.fromObject(item));
