@@ -3,7 +3,6 @@ const SteamID = require('steamid');
 const request = require('request-retry-dayjs');
 const SKU = require('tf2-sku-2');
 const isObject = require('isobject');
-const dayjs = require('dayjs');
 
 const inherits = require('util').inherits;
 const EventEmitter = require('events').EventEmitter;
@@ -155,11 +154,11 @@ class ListingManager {
                 return callback(new Error(response.status + ' (' + response.statusText + ')'));
             }
 
-            const time = dayjs.unix(body.last_update);
+            const time = body.last_update;
 
             if (this._lastInventoryUpdate === null) {
                 this._lastInventoryUpdate = time;
-            } else if (time.unix() !== this._lastInventoryUpdate.unix()) {
+            } else if (time !== this._lastInventoryUpdate) {
                 // The inventory has updated on backpack.tf
                 this._lastInventoryUpdate = time;
 

@@ -1,6 +1,5 @@
 const SteamID = require('steamid');
 const Currencies = require('tf2-currencies');
-const dayjs = require('dayjs');
 const SKU = require('tf2-sku-2');
 
 class Listing {
@@ -31,8 +30,8 @@ class Listing {
         this.buyout = listing.buyout === 1;
         this.promoted = listing.promoted;
         this.details = listing.details;
-        this.created = dayjs.unix(listing.created);
-        this.bump = dayjs.unix(listing.bump);
+        this.created = listing.created;
+        this.bump = listing.bump;
 
         this._manager = manager;
     }
