@@ -200,6 +200,9 @@ class Listing {
             } else if (attribute.defindex == 2012) {
                 // Target - Unusualifier/Strangifier/Killstreak Kit
                 attributes.target = attribute.float_value;
+            } else if (attribute.defindex == 142) {
+                // Painted items
+                attributes.paint = attribute.float_value;
             } else if (
                     [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007].includes(attribute.defindex) &&
                     attribute.is_output == true
