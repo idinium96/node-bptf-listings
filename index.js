@@ -746,6 +746,7 @@ class ListingManager {
         const name = this.schema.getName({
             defindex: item.defindex,
             quality: 6,
+            festive: item.festive,
             killstreak: item.killstreak,
             australium: item.australium,
             target: item.target
