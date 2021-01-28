@@ -193,7 +193,9 @@ class Listing {
                 attributes.wear = parseInt(parseFloat(attribute.value) * 5);
             } else if (attribute.defindex == 214) {
                 // Strange as second quality
-                attributes.quality2 = 11;
+                if (this.item.quality !== 11) {
+                    attributes.quality2 = 11;
+                }
             } else if (attribute.defindex == 187) {
                 // Crates
                 attributes.crateseries = attribute.float_value;
