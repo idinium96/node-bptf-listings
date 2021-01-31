@@ -203,8 +203,43 @@ class Listing {
                 // Target - Unusualifier/Strangifier/Killstreak Kit
                 attributes.target = attribute.float_value;
             } else if (attribute.defindex == 142) {
-                // Painted items
-                attributes.paint = attribute.float_value;
+                // Painted items, do not apply if it's a Paint Can
+                if (
+                    ![
+                        5023, // Paint Can
+                        5027, // Indubitably Green
+                        5028, // Zepheniah's Greed
+                        5029, // Noble Hatter's Violet
+                        5030, // Color No. 216-190-216
+                        5031, // A Deep Commitment to Purple
+                        5032, // Mann Co. Orange
+                        5033, // Muskelmannbraun
+                        5034, // Peculiarly Drab Tincture
+                        5035, // Radigan Conagher Brown
+                        5036, // Ye Olde Rustic Colour
+                        5037, // Australium Gold
+                        5038, // Aged Moustache Grey
+                        5039, // An Extraordinary Abundance of Tinge
+                        5040, // A Distinctive Lack of Hue
+                        5046, // Team Spirit
+                        5051, // Pink as Hell
+                        5052, // A Color Similar to Slate
+                        5053, // Drably Olive
+                        5054, // The Bitter Taste of Defeat and Lime
+                        5055, // The Color of a Gentlemann's Business Pants
+                        5056, // Dark Salmon Injustice
+                        5060, // Operator's Overalls
+                        5061, // Waterlogged Lab Coat
+                        5062, // Balaclavas Are Forever
+                        5063, // An Air of Debonair
+                        5064, // The Value of Teamwork
+                        5065, // Cream Spirit
+                        5076, // A Mann's Mint
+                        5077 // After Eight
+                    ].includes(this.item.defindex)
+                ) {
+                    attributes.paint = attribute.float_value;
+                }
             } else if (
                     [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007].includes(attribute.defindex) &&
                     attribute.is_output == true
