@@ -97,6 +97,28 @@ class Listing {
             item.defindex = 736;
         } else if (item.defindex === 1163) {
             item.defindex = 489;
+        } else if (item.defindex === 831 && item.quality !== 1) {
+            item.defindex = 810 // Red-Tape Recorder
+        } else if (item.defindex === 832 && item.quality !== 1) {
+            item.defindex = 811 // Huo-Long Heater
+        } else if (item.defindex === 833 && item.quality !== 1) {
+            item.defindex = 812 // Flying Guillotine
+        } else if (item.defindex === 834 && item.quality !== 1) {
+            item.defindex = 813 // Neon Annihilator
+        } else if (item.defindex === 835 && item.quality !== 1) {
+            item.defindex = 814 // Triad Trinket
+        } else if (item.defindex === 836 && item.quality !== 1) {
+            item.defindex = 815 // Champ Stamp
+        } else if (item.defindex === 837 && item.quality !== 1) {
+            item.defindex = 816 // Marxman
+        } else if (item.defindex === 838 && item.quality !== 1) {
+            item.defindex = 817 // Human Cannonball
+        } else if (item.defindex === 30740 && item.quality !== 1) {
+            item.defindex = 30720 // Arkham Cowl
+        } else if (item.defindex === 30741 && item.quality !== 1) {
+            item.defindex = 30721 // Firefly
+        } else if (item.defindex === 30739 && item.quality !== 1) {
+            item.defindex = 30724 // Fear Monger
         }
 
         if (this.item.name.includes('Chemistry Set')) {
