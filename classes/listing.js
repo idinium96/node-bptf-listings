@@ -264,7 +264,7 @@ class Listing {
                 attributes.paintkit = attribute.value;
             } else if (attribute.defindex == 725) {
                 // Wear
-                attributes.wear = parseInt(parseFloat(attribute.value) * 5);
+                attributes.wear = parseInt(parseFloat(attribute.float_value) * 5);
             } else if (attribute.defindex == 214) {
                 // Strange as second quality
                 if (this.item.quality !== 11) {
