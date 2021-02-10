@@ -34,23 +34,6 @@ class Listing {
         this.bump = listing.bump;
 
         this._manager = manager;
-
-        // Fix stock defindex
-        if ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes(this.item.defindex)) {
-            this.item.defindex += 190;
-        } else if ([10, 11, 12].includes(this.item.defindex)) {
-            this.item.defindex = 199;
-        } else if ([13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24].includes(this.item.defindex)) {
-            this.item.defindex += 187;
-        } else if (this.item.defindex === 25) {
-            this.item.defindex = 737;
-        } else if ([29, 30].includes(this.item.defindex)) {
-            this.item.defindex += 182;
-        } else if (this.item.defindex === 735) {
-            this.item.defindex = 736;
-        } else if (this.item.defindex === 1163) {
-            this.item.defindex = 489;
-        }
     }
 
     /**
@@ -99,7 +82,22 @@ class Listing {
             item[attribute] = attributes[attribute];
         }
 
-        // TODO: Have the item go through a "fix item" function (maybe not needed?)
+        // Fix stock defindex
+        if ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes(item.defindex)) {
+            item.defindex += 190;
+        } else if ([10, 11, 12].includes(item.defindex)) {
+            item.defindex = 199;
+        } else if ([13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24].includes(item.defindex)) {
+            item.defindex += 187;
+        } else if (item.defindex === 25) {
+            item.defindex = 737;
+        } else if ([29, 30].includes(item.defindex)) {
+            item.defindex += 182;
+        } else if (item.defindex === 735) {
+            item.defindex = 736;
+        } else if (item.defindex === 1163) {
+            item.defindex = 489;
+        }
 
         if (this.item.name.includes('Chemistry Set')) {
             if (this.item.name.includes("Collector's Festive") && this.item.name.includes('Chemistry Set')) {
