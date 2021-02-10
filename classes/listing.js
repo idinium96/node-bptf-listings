@@ -179,6 +179,9 @@ class Listing {
             } else if (attribute.defindex == 2027) {
                 // Australium
                 attributes.australium = true;
+            } else if (attribute.defindex == 2053) {
+                // Festivized
+                attributes.festive = true;
             } else if (attribute.defindex == 134) {
                 // Unusual effect for cosmetics
                 attributes.effect = attribute.float_value;
