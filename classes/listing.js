@@ -115,6 +115,40 @@ class Listing {
             } else if (this.item.name.includes('Specialized Killstreak') && this.item.name.includes('Kit Fabricator')) {
                 item.killstreak = 2;
             }
+        } else if (
+            this.item.name.includes('Killstreak') &&
+            this.item.name.includes('Kit') &&
+            !this.item.name.includes('Professional') &&
+            !this.item.name.includes('Specialized')
+        ) {
+            // Killstreak Kit
+            if (this.item.name.includes('Rocket Launcher')) item.defindex = 5726;
+            else if (this.item.name.includes('Scattergun')) item.defindex = 5727;
+            else if (this.item.name.includes('Sniper Rifle')) item.defindex = 5728;
+            else if (this.item.name.includes('Shotgun')) item.defindex = 5729;
+            else if (this.item.name.includes('Ubersaw')) item.defindex = 5730;
+            else if (this.item.name.includes('Gloves of Running Urgently')) item.defindex = 5731;
+            else if (this.item.name.includes('Spy-cicle')) item.defindex = 5732;
+            else if (this.item.name.includes('Axtinguisher')) item.defindex = 5733;
+            else if (this.item.name.includes('Stickybomb Launcher')) item.defindex = 5743;
+            else if (this.item.name.includes('Minigun')) item.defindex = 5744;
+            else if (this.item.name.includes('Direct Hit')) item.defindex = 5745;
+            else if (this.item.name.includes('Huntsman')) item.defindex = 5746;
+            else if (this.item.name.includes('Backburner')) item.defindex = 5747;
+            else if (this.item.name.includes('Back Scatter')) item.defindex = 5748;
+            else if (this.item.name.includes('Kritzkrieg')) item.defindex = 5749;
+            else if (this.item.name.includes('Ambassador')) item.defindex = 5750;
+            else if (this.item.name.includes('Frontier Justice')) item.defindex = 5751;
+            else if (this.item.name.includes('Flare Gun')) item.defindex = 5793;
+            else if (this.item.name.includes('Wrench')) item.defindex = 5794;
+            else if (this.item.name.includes('Revolver')) item.defindex = 5795;
+            else if (this.item.name.includes('Machina')) item.defindex = 5796;
+            else if (this.item.name.includes("Baby Face's Blaster")) item.defindex = 5797;
+            else if (this.item.name.includes('Huo-Long Heater')) item.defindex = 5798;
+            else if (this.item.name.includes('Loose Cannon')) item.defindex = 5799;
+            else if (this.item.name.includes('Vaccinator')) item.defindex = 5800;
+            else if (this.item.name.includes('Air Strike')) item.defindex = 5801;
+            else item.defindex = 6527;
         }
 
         // Adds default values
