@@ -87,8 +87,12 @@ class Listing {
             item.defindex += 190;
         } else if ([10, 11, 12].includes(item.defindex)) {
             item.defindex = 199;
-        } else if ([13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24].includes(item.defindex)) {
+        } else if ([13, 14, 15, 16, 17, 18, 19, 20, 21].includes(item.defindex)) {
             item.defindex += 187;
+        } else if ([22, 23].includes(item.defindex)) {
+            item.defindex = 209;
+        } else if (item.defindex === 24) {
+            item.defindex = 210;
         } else if (item.defindex === 25) {
             item.defindex = 737;
         } else if ([29, 30].includes(item.defindex)) {
