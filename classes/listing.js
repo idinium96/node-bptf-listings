@@ -246,7 +246,9 @@ class Listing {
             return attributes;
         }
 
-        for (let i = 0; i < this.item.attributes.length; i++) {
+        const attributesCount = this.item.attributes.length;
+
+        for (let i = 0; i < attributesCount; i++) {
             const attribute = this.item.attributes[i];
             if (attribute.defindex == 2025) {
                 // Killstreak tier/Killstreak Kit
@@ -332,7 +334,9 @@ class Listing {
                     attributes.outputQuality = attribute.quality;
 
                     const attributes2 = attribute.attributes;
-                    for (let i = 0; i < attributes2.length; i++) {
+                    const attributes2Count = attributes2.length;
+
+                    for (let i = 0; i < attributes2Count; i++) {
                         const attributes2Element = attributes2[i];
                         if (attributes2Element.defindex == 2012) {
                             const value = attributes2Element.float_value;
