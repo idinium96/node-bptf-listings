@@ -101,7 +101,7 @@ class Listing {
             item.defindex = 736;
         } else if (item.defindex === 1163) {
             item.defindex = 489;
-        } else if (item.defindex === 831 && item.quality !== 1) {
+        } else if (item.defindex === 831 && item.quality !== 1) { // Fix Exclusive Genuine Items
             item.defindex = 810 // Red-Tape Recorder
         } else if (item.defindex === 810 && item.quality === 1) {
             item.defindex = 831 // Genuine Red-Tape Recorder
@@ -195,6 +195,8 @@ class Listing {
             else if (this.item.name.includes('Vaccinator')) item.defindex = 5800;
             else if (this.item.name.includes('Air Strike')) item.defindex = 5801;
             else item.defindex = 6527;
+        } else if (this.item.name.includes('Medic Mask')) {
+            item.defindex = 272; // 🤷‍♂️
         }
 
         // Adds default values
