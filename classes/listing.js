@@ -103,26 +103,48 @@ class Listing {
             item.defindex = 489;
         } else if (item.defindex === 831 && item.quality !== 1) {
             item.defindex = 810 // Red-Tape Recorder
+        } else if (item.defindex === 810 && item.quality === 1) {
+            item.defindex = 831 // Genuine Red-Tape Recorder
         } else if (item.defindex === 832 && item.quality !== 1) {
             item.defindex = 811 // Huo-Long Heater
+        } else if (item.defindex === 811 && item.quality === 1) {
+            item.defindex = 832 // Genuine Huo-Long Heater
         } else if (item.defindex === 833 && item.quality !== 1) {
             item.defindex = 812 // Flying Guillotine
+        } else if (item.defindex === 812 && item.quality === 1) {
+            item.defindex = 833 // Genuine Flying Guillotine
         } else if (item.defindex === 834 && item.quality !== 1) {
             item.defindex = 813 // Neon Annihilator
+        } else if (item.defindex === 813 && item.quality === 1) {
+            item.defindex = 834 // Genuine Neon Annihilator
         } else if (item.defindex === 835 && item.quality !== 1) {
             item.defindex = 814 // Triad Trinket
+        } else if (item.defindex === 814 && item.quality === 1) {
+            item.defindex = 835 // Genuine Triad Trinket
         } else if (item.defindex === 836 && item.quality !== 1) {
             item.defindex = 815 // Champ Stamp
+        } else if (item.defindex === 815 && item.quality === 1) {
+            item.defindex = 836 // Genuine Champ Stamp
         } else if (item.defindex === 837 && item.quality !== 1) {
             item.defindex = 816 // Marxman
+        } else if (item.defindex === 816 && item.quality === 1) {
+            item.defindex = 837 // Genuine Marxman
         } else if (item.defindex === 838 && item.quality !== 1) {
             item.defindex = 817 // Human Cannonball
+        } else if (item.defindex === 817 && item.quality === 1) {
+            item.defindex = 838 // Genuine Human Cannonball
         } else if (item.defindex === 30740 && item.quality !== 1) {
             item.defindex = 30720 // Arkham Cowl
+        } else if (item.defindex === 30720 && item.quality === 1) {
+            item.defindex = 30740 // Genuine Arkham Cowl
         } else if (item.defindex === 30741 && item.quality !== 1) {
             item.defindex = 30721 // Firefly
+        } else if (item.defindex === 30721 && item.quality === 1) {
+            item.defindex = 30741 // Genuine Firefly
         } else if (item.defindex === 30739 && item.quality !== 1) {
             item.defindex = 30724 // Fear Monger
+        } else if (item.defindex === 30724 && item.quality === 1) {
+            item.defindex = 30739 // Genuine Fear Monger
         }
 
         if (this.item.name.includes('Chemistry Set')) {
