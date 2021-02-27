@@ -1,5 +1,5 @@
 const SteamID = require('steamid');
-const Currencies = require('tf2-currencies');
+const Currencies = require('tf2-currencies-2');
 const SKU = require('tf2-sku-2');
 
 class Listing {
