@@ -749,7 +749,9 @@ class ListingManager {
             festive: item.festive,
             killstreak: item.killstreak,
             australium: item.australium,
-            target: item.target
+            target: item.target,
+            paintkit: item.paintkit,
+            wear: item.wear
         }, false);
 
         const formatted = {
