@@ -797,30 +797,38 @@ class ListingManager {
             false
         );
 
+        const nameLowered = name.toLowerCase();
+        const isUnusualifier = nameLowered.includes('unusualifier') && item.target !== null;
+        const isStrangifier = nameLowered.includes('strangifier') && item.target !== null;
+        const isFabricator =
+            nameLowered.includes('fabricator') &&
+            item.outputQuality !== null &&
+            item.output !== null &&
+            item.target !== null;
+        const isKillstreakKit = nameLowered.includes('kit') && item.killstreak !== null && item.target !== null;
+        const isChemistrySet =
+            nameLowered.includes('chemistry set') &&
+            (item.output !== null || item.target !== null) &&
+            item.outputQuality !== null;
+
         const formatted = {
-            item_name:
-                name.toLowerCase().includes('unusualifier') && item.target !== null
-                    ? 'Unusualifier'
-                    : name.toLowerCase().includes('strangifier') && item.target !== null
-                    ? 'Strangifier'
-                    : name.toLowerCase().includes('fabricator') &&
-                      item.outputQuality !== null &&
-                      item.output !== null &&
-                      item.target !== null
-                    ? item.killstreak === 2
-                        ? 'Specialized Killstreak Fabricator'
-                        : 'Professional Killstreak Fabricator'
-                    : name.toLowerCase().includes('kit') && item.killstreak !== null && item.target !== null
-                    ? item.killstreak === 1
-                        ? 'Killstreak Kit'
-                        : item.killstreak === 2
-                        ? 'Specialized Killstreak Kit'
-                        : 'Professional Killstreak Kit'
-                    : name.toLowerCase().includes('chemistry set') &&
-                      (item.output !== null || item.target !== null) &&
-                      item.outputQuality !== null
-                    ? 'Chemistry Set'
-                    : name
+            item_name: isUnusualifier
+                ? 'Unusualifier'
+                : isStrangifier
+                ? 'Strangifier'
+                : isFabricator
+                ? item.killstreak === 2
+                    ? 'Specialized Killstreak Fabricator'
+                    : 'Professional Killstreak Fabricator'
+                : isKillstreakKit
+                ? item.killstreak === 1
+                    ? 'Killstreak Kit'
+                    : item.killstreak === 2
+                    ? 'Specialized Killstreak Kit'
+                    : 'Professional Killstreak Kit'
+                : isChemistrySet
+                ? 'Chemistry Set'
+                : name
         };
 
         formatted.quality =
@@ -835,30 +843,15 @@ class ListingManager {
             formatted.priceindex = item.effect;
         } else if (item.crateseries !== null) {
             formatted.priceindex = item.crateseries;
-        } else if (
-            (name.toLowerCase().includes('unusualifier') || name.toLowerCase().includes('strangifier')) &&
-            item.target !== null
-        ) {
+        } else if (isUnusualifier || isStrangifier) {
             formatted.priceindex = item.target;
-        } else if (
-            name.toLowerCase().includes('fabricator') &&
-            item.outputQuality !== null &&
-            item.output !== null &&
-            item.target !== null
-        ) {
+        } else if (isFabricator) {
             // fabricator
             formatted.priceindex = `${item.output}-${item.outputQuality}-${item.target}`;
-        } else if (name.toLowerCase().includes('kit') && item.killstreak !== null && item.target !== null) {
+        } else if (isKillstreakKit) {
             // killstreak kit
             formatted.priceindex = `${item.killstreak}-${item.target}`;
-        } else if (name.toLowerCase().includes('chemistry set')) {
-            // Chemistry Set Collector's (item.output)
-            // Chemistry Set Strangifier (item.target)
-            // if (item.target === null) {
-            //     formatted.priceindex = `${item.output}-${item.outputQuality}`;
-            // } else {
-            //     formatted.priceindex = `${item.output}-${item.outputQuality}-${item.target}`;
-            // }
+        } else if (isChemistrySet) {
             formatted.priceindex = `${item.target === null ? item.output : item.target}-${item.outputQuality}`;
         }
 
