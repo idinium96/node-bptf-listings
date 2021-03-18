@@ -761,9 +761,15 @@ class ListingManager {
                       : name.toLowerCase().includes('strangifier') && item.target !== null
                       ? 'Strangifier'
                       : name.toLowerCase().includes('fabricator') && item.outputQuality !== null && item.output !== null && item.target !== null
-                      ? 'Fabricator'
+                      ? item.killstreak === 2
+                        ? 'Specialized Killstreak Fabricator'
+                        : 'Professional Killstreak Fabricator'
                       : name.toLowerCase().includes('kit') && item.killstreak !== null && item.target !== null
-                      ? 'Kit'
+                      ? item.killstreak === 1
+                        ? 'Killstreak Kit'
+                        : item.killstreak === 2
+                        ? 'Specialized Killstreak Kit'
+                        : 'Professional Killstreak Kit'
                       : name.toLowerCase().includes('chemistry set') && (item.output !== null || item.target !== null) && item.outputQuality !== null
                       ? 'Chemistry Set'
                       : name
