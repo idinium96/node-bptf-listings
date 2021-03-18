@@ -19,7 +19,7 @@ class Listing {
      * @param {Number} listing.bump
      * @param {Object} manager Instance of bptf-listings
      */
-    constructor (listing, manager) {
+    constructor(listing, manager) {
         this.id = listing.id;
         this.steamid = new SteamID(listing.steamid);
         this.intent = listing.intent;
@@ -40,7 +40,7 @@ class Listing {
      * Gets the sku of the item in the listing
      * @return {String}
      */
-    getSKU () {
+    getSKU() {
         if (this.appid !== 440) {
             return null;
         }
@@ -52,7 +52,7 @@ class Listing {
      * Returns the item in the listings
      * @return {Object}
      */
-    getItem () {
+    getItem() {
         if (this.appid !== 440) {
             return this.item;
         }
@@ -66,7 +66,9 @@ class Listing {
         // Backpack.tf uses item_name for when making listings, meaning that the defindex in some cases is incorrect
 
         const schemaItem = this._manager.schema.getItemByDefindex(item.defindex);
-        const schemaItemByName = this._manager.schema.raw.schema.items.find((v) => v.name === schemaItem.item_name && schemaItem.item_quality !== 0);
+        const schemaItemByName = this._manager.schema.raw.schema.items.find(
+            v => v.name === schemaItem.item_name && schemaItem.item_quality !== 0
+        );
 
         if (schemaItemByName !== undefined) {
             item.defindex = schemaItemByName.defindex;
@@ -101,50 +103,51 @@ class Listing {
             item.defindex = 736;
         } else if (item.defindex === 1163) {
             item.defindex = 489;
-        } else if (item.defindex === 831 && item.quality !== 1) { // Fix Exclusive Genuine Items
-            item.defindex = 810 // Red-Tape Recorder
+        } else if (item.defindex === 831 && item.quality !== 1) {
+            // Fix Exclusive Genuine Items
+            item.defindex = 810; // Red-Tape Recorder
         } else if (item.defindex === 810 && item.quality === 1) {
-            item.defindex = 831 // Genuine Red-Tape Recorder
+            item.defindex = 831; // Genuine Red-Tape Recorder
         } else if (item.defindex === 832 && item.quality !== 1) {
-            item.defindex = 811 // Huo-Long Heater
+            item.defindex = 811; // Huo-Long Heater
         } else if (item.defindex === 811 && item.quality === 1) {
-            item.defindex = 832 // Genuine Huo-Long Heater
+            item.defindex = 832; // Genuine Huo-Long Heater
         } else if (item.defindex === 833 && item.quality !== 1) {
-            item.defindex = 812 // Flying Guillotine
+            item.defindex = 812; // Flying Guillotine
         } else if (item.defindex === 812 && item.quality === 1) {
-            item.defindex = 833 // Genuine Flying Guillotine
+            item.defindex = 833; // Genuine Flying Guillotine
         } else if (item.defindex === 834 && item.quality !== 1) {
-            item.defindex = 813 // Neon Annihilator
+            item.defindex = 813; // Neon Annihilator
         } else if (item.defindex === 813 && item.quality === 1) {
-            item.defindex = 834 // Genuine Neon Annihilator
+            item.defindex = 834; // Genuine Neon Annihilator
         } else if (item.defindex === 835 && item.quality !== 1) {
-            item.defindex = 814 // Triad Trinket
+            item.defindex = 814; // Triad Trinket
         } else if (item.defindex === 814 && item.quality === 1) {
-            item.defindex = 835 // Genuine Triad Trinket
+            item.defindex = 835; // Genuine Triad Trinket
         } else if (item.defindex === 836 && item.quality !== 1) {
-            item.defindex = 815 // Champ Stamp
+            item.defindex = 815; // Champ Stamp
         } else if (item.defindex === 815 && item.quality === 1) {
-            item.defindex = 836 // Genuine Champ Stamp
+            item.defindex = 836; // Genuine Champ Stamp
         } else if (item.defindex === 837 && item.quality !== 1) {
-            item.defindex = 816 // Marxman
+            item.defindex = 816; // Marxman
         } else if (item.defindex === 816 && item.quality === 1) {
-            item.defindex = 837 // Genuine Marxman
+            item.defindex = 837; // Genuine Marxman
         } else if (item.defindex === 838 && item.quality !== 1) {
-            item.defindex = 817 // Human Cannonball
+            item.defindex = 817; // Human Cannonball
         } else if (item.defindex === 817 && item.quality === 1) {
-            item.defindex = 838 // Genuine Human Cannonball
+            item.defindex = 838; // Genuine Human Cannonball
         } else if (item.defindex === 30740 && item.quality !== 1) {
-            item.defindex = 30720 // Arkham Cowl
+            item.defindex = 30720; // Arkham Cowl
         } else if (item.defindex === 30720 && item.quality === 1) {
-            item.defindex = 30740 // Genuine Arkham Cowl
+            item.defindex = 30740; // Genuine Arkham Cowl
         } else if (item.defindex === 30741 && item.quality !== 1) {
-            item.defindex = 30721 // Firefly
+            item.defindex = 30721; // Firefly
         } else if (item.defindex === 30721 && item.quality === 1) {
-            item.defindex = 30741 // Genuine Firefly
+            item.defindex = 30741; // Genuine Firefly
         } else if (item.defindex === 30739 && item.quality !== 1) {
-            item.defindex = 30724 // Fear Monger
+            item.defindex = 30724; // Fear Monger
         } else if (item.defindex === 30724 && item.quality === 1) {
-            item.defindex = 30739 // Genuine Fear Monger
+            item.defindex = 30739; // Genuine Fear Monger
         }
 
         if (this.item.name.includes('Chemistry Set')) {
@@ -207,7 +210,7 @@ class Listing {
      * Returns the name of the item in the listing
      * @return {String}
      */
-    getName () {
+    getName() {
         if (this.appid !== 440) {
             return null;
         }
@@ -223,7 +226,7 @@ class Listing {
      * @param {Boolean} [properties.offers]
      * @param {Boolean} [properties.buyout]
      */
-    update (properties) {
+    update(properties) {
         if (properties.time === undefined) {
             return;
         }
@@ -241,7 +244,7 @@ class Listing {
             listing.promoted = this.item.promoted;
         }
 
-        ['currencies', 'details', 'offers', 'buyout'].forEach((property) => {
+        ['currencies', 'details', 'offers', 'buyout'].forEach(property => {
             if (properties[property] === undefined) {
                 listing[property] = this[property];
             } else {
@@ -255,7 +258,7 @@ class Listing {
     /**
      * Enqueues the listing to be removed
      */
-    remove () {
+    remove() {
         this._manager.removeListing(this.id);
     }
 
@@ -263,7 +266,7 @@ class Listing {
      * Parses attributes
      * @return {Object}
      */
-    _parseAttributes () {
+    _parseAttributes() {
         const attributes = {};
 
         if (this.item.attributes === undefined) {
@@ -345,8 +348,8 @@ class Listing {
                     attributes.paint = attribute.float_value;
                 }
             } else if (
-                    [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007].includes(attribute.defindex) &&
-                    attribute.is_output == true
+                [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007].includes(attribute.defindex) &&
+                attribute.is_output == true
             ) {
                 if (attribute.attributes === undefined) {
                     // Chemistry Set Collector's - getting output and outputQuality
