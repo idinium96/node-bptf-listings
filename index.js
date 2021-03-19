@@ -798,25 +798,58 @@ class ListingManager {
         );
 
         const nameLowered = name.toLowerCase();
+
         const isUnusualifier = nameLowered.includes('unusualifier') && item.target !== null;
-        const isStrangifier = nameLowered.includes('strangifier') && item.target !== null;
-        const isFabricator =
-            nameLowered.includes('fabricator') &&
-            item.outputQuality !== null &&
-            item.output !== null &&
-            item.target !== null;
-        const isKillstreakKit = nameLowered.includes('kit') && item.killstreak !== null && item.target !== null;
-        const isChemistrySet =
+
+        const isStrangifierChemistrySet =
             nameLowered.includes('chemistry set') &&
-            (item.output !== null || item.target !== null) &&
+            item.target !== null &&
+            item.output !== null &&
             item.outputQuality !== null;
 
+        const isCollectorsChemistrySet =
+            nameLowered.includes('chemistry set') &&
+            item.target === null &&
+            item.output !== null &&
+            item.outputQuality !== null;
+
+        const isStrangifier = nameLowered.includes('strangifier') && item.target !== null;
+
+        const isFabricator =
+            nameLowered.includes('fabricator') &&
+            item.target !== null &&
+            item.output !== null &&
+            item.outputQuality !== null;
+        const isGenericFabricator =
+            nameLowered.includes('fabricator') &&
+            item.target === null &&
+            item.output !== null &&
+            item.outputQuality !== null;
+
+        const isKillstreakKit = nameLowered.includes('kit') && item.killstreak !== 0 && item.target !== null;
+        const isGenericKillstreakKit = nameLowered.includes('kit') && item.killstreak !== 0 && item.target === null;
+
+        const isMustUseNameForKillstreak =
+            item.killstreak !== 0
+                ? item.target !== null
+                    ? true
+                    : !isUnusualifier &&
+                      !isStrangifierChemistrySet &&
+                      !isCollectorsChemistrySet &&
+                      !isStrangifier &&
+                      !isFabricator &&
+                      !isGenericFabricator &&
+                      !isKillstreakKit &&
+                      !isGenericKillstreakKit
+                    ? true
+                    : false
+                : false;
+
+        const isNotUsingDefindex =
+            isMustUseNameForKillstreak || item.festive || item.australium || item.paintkit || item.wear;
+
         const formatted = {
-            item_name: isUnusualifier
-                ? 'Unusualifier'
-                : isStrangifier
-                ? 'Strangifier'
-                : isFabricator
+            item_name: isFabricator
                 ? item.killstreak === 2
                     ? 'Specialized Killstreak Fabricator'
                     : 'Professional Killstreak Fabricator'
@@ -826,33 +859,38 @@ class ListingManager {
                     : item.killstreak === 2
                     ? 'Specialized Killstreak Kit'
                     : 'Professional Killstreak Kit'
-                : isChemistrySet
-                ? 'Chemistry Set'
-                : name
+                : isNotUsingDefindex
+                ? name
+                : item.defindex
         };
 
         formatted.quality =
             (item.quality2 !== null ? this.schema.getQualityById(item.quality2) + ' ' : '') +
             this.schema.getQualityById(item.quality);
 
-        if (!item.craftable) {
-            formatted.craftable = 0;
-        }
+        formatted.craftable = item.craftable ? 1 : 0;
 
-        if (item.effect !== null) {
-            formatted.priceindex = item.effect;
-        } else if (item.crateseries !== null) {
-            formatted.priceindex = item.crateseries;
-        } else if (isUnusualifier || isStrangifier) {
-            formatted.priceindex = item.target;
-        } else if (isFabricator) {
-            // fabricator
-            formatted.priceindex = `${item.output}-${item.outputQuality}-${item.target}`;
-        } else if (isKillstreakKit) {
-            // killstreak kit
-            formatted.priceindex = `${item.killstreak}-${item.target}`;
-        } else if (isChemistrySet) {
-            formatted.priceindex = `${item.target === null ? item.output : item.target}-${item.outputQuality}`;
+        formatted.priceindex =
+            item.effect !== null
+                ? item.effect
+                : item.crateseries !== null
+                ? item.crateseries
+                : isUnusualifier || isStrangifier
+                ? item.target
+                : isFabricator
+                ? `${item.output}-${item.outputQuality}-${item.target}`
+                : isKillstreakKit
+                ? `${item.killstreak}-${item.target}`
+                : isStrangifierChemistrySet
+                ? `${item.target}-${item.outputQuality}-${item.output}`
+                : isCollectorsChemistrySet
+                ? `${item.output}-${item.outputQuality}`
+                : isGenericFabricator
+                ? `${item.output}-${item.outputQuality}-0`
+                : undefined;
+
+        if (!formatted.priceindex) {
+            delete formatted.priceindex;
         }
 
         return formatted;

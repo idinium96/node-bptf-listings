@@ -2,6 +2,35 @@ const SteamID = require('steamid');
 const Currencies = require('tf2-currencies-2');
 const SKU = require('tf2-sku-2');
 
+const killstreakKit = new Map();
+killstreakKit
+    .set('Rocket Launcher', 5726)
+    .set('Scattergun', 5727)
+    .set('Sniper Rifle', 5728)
+    .set('Shotgun', 5729)
+    .set('Ubersaw', 5730)
+    .set('Gloves of Running Urgently', 5731)
+    .set('Spy-cicle', 5732)
+    .set('Axtinguisher', 5733)
+    .set('Stickybomb Launcher', 5743)
+    .set('Minigun', 5744)
+    .set('Direct Hit', 5745)
+    .set('Huntsman', 5746)
+    .set('Backburner', 5747)
+    .set('Back Scatter', 5748)
+    .set('Kritzkrieg', 5749)
+    .set('Ambassador', 5750)
+    .set('Frontier Justice', 5751)
+    .set('Flare Gun', 5793)
+    .set('Wrench', 5794)
+    .set('Revolver', 5795)
+    .set('Machina', 5796)
+    .set("Baby Face's Blaster", 5797)
+    .set('Huo-Long Heater', 5798)
+    .set('Loose Cannon', 5799)
+    .set('Vaccinator', 5800)
+    .set('Air Strike', 5801);
+
 class Listing {
     /**
      * Creates a new instance of the listing class
@@ -84,72 +113,6 @@ class Listing {
             item[attribute] = attributes[attribute];
         }
 
-        // Fix stock defindex
-        if ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes(item.defindex)) {
-            item.defindex += 190;
-        } else if ([10, 11, 12].includes(item.defindex)) {
-            item.defindex = 199;
-        } else if ([13, 14, 15, 16, 17, 18, 19, 20, 21].includes(item.defindex)) {
-            item.defindex += 187;
-        } else if ([22, 23].includes(item.defindex)) {
-            item.defindex = 209;
-        } else if (item.defindex === 24) {
-            item.defindex = 210;
-        } else if (item.defindex === 25) {
-            item.defindex = 737;
-        } else if ([29, 30].includes(item.defindex)) {
-            item.defindex += 182;
-        } else if (item.defindex === 735) {
-            item.defindex = 736;
-        } else if (item.defindex === 1163) {
-            item.defindex = 489;
-        } else if (item.defindex === 831 && item.quality !== 1) {
-            // Fix Exclusive Genuine Items
-            item.defindex = 810; // Red-Tape Recorder
-        } else if (item.defindex === 810 && item.quality === 1) {
-            item.defindex = 831; // Genuine Red-Tape Recorder
-        } else if (item.defindex === 832 && item.quality !== 1) {
-            item.defindex = 811; // Huo-Long Heater
-        } else if (item.defindex === 811 && item.quality === 1) {
-            item.defindex = 832; // Genuine Huo-Long Heater
-        } else if (item.defindex === 833 && item.quality !== 1) {
-            item.defindex = 812; // Flying Guillotine
-        } else if (item.defindex === 812 && item.quality === 1) {
-            item.defindex = 833; // Genuine Flying Guillotine
-        } else if (item.defindex === 834 && item.quality !== 1) {
-            item.defindex = 813; // Neon Annihilator
-        } else if (item.defindex === 813 && item.quality === 1) {
-            item.defindex = 834; // Genuine Neon Annihilator
-        } else if (item.defindex === 835 && item.quality !== 1) {
-            item.defindex = 814; // Triad Trinket
-        } else if (item.defindex === 814 && item.quality === 1) {
-            item.defindex = 835; // Genuine Triad Trinket
-        } else if (item.defindex === 836 && item.quality !== 1) {
-            item.defindex = 815; // Champ Stamp
-        } else if (item.defindex === 815 && item.quality === 1) {
-            item.defindex = 836; // Genuine Champ Stamp
-        } else if (item.defindex === 837 && item.quality !== 1) {
-            item.defindex = 816; // Marxman
-        } else if (item.defindex === 816 && item.quality === 1) {
-            item.defindex = 837; // Genuine Marxman
-        } else if (item.defindex === 838 && item.quality !== 1) {
-            item.defindex = 817; // Human Cannonball
-        } else if (item.defindex === 817 && item.quality === 1) {
-            item.defindex = 838; // Genuine Human Cannonball
-        } else if (item.defindex === 30740 && item.quality !== 1) {
-            item.defindex = 30720; // Arkham Cowl
-        } else if (item.defindex === 30720 && item.quality === 1) {
-            item.defindex = 30740; // Genuine Arkham Cowl
-        } else if (item.defindex === 30741 && item.quality !== 1) {
-            item.defindex = 30721; // Firefly
-        } else if (item.defindex === 30721 && item.quality === 1) {
-            item.defindex = 30741; // Genuine Firefly
-        } else if (item.defindex === 30739 && item.quality !== 1) {
-            item.defindex = 30724; // Fear Monger
-        } else if (item.defindex === 30724 && item.quality === 1) {
-            item.defindex = 30739; // Genuine Fear Monger
-        }
-
         if (this.item.name.includes('Chemistry Set')) {
             if (this.item.name.includes("Collector's Festive") && this.item.name.includes('Chemistry Set')) {
                 item.defindex = 20007;
@@ -171,33 +134,22 @@ class Listing {
             !this.item.name.includes('Specialized')
         ) {
             // Killstreak Kit
-            if (this.item.name.includes('Rocket Launcher')) item.defindex = 5726;
-            else if (this.item.name.includes('Scattergun')) item.defindex = 5727;
-            else if (this.item.name.includes('Sniper Rifle')) item.defindex = 5728;
-            else if (this.item.name.includes('Shotgun')) item.defindex = 5729;
-            else if (this.item.name.includes('Ubersaw')) item.defindex = 5730;
-            else if (this.item.name.includes('Gloves of Running Urgently')) item.defindex = 5731;
-            else if (this.item.name.includes('Spy-cicle')) item.defindex = 5732;
-            else if (this.item.name.includes('Axtinguisher')) item.defindex = 5733;
-            else if (this.item.name.includes('Stickybomb Launcher')) item.defindex = 5743;
-            else if (this.item.name.includes('Minigun')) item.defindex = 5744;
-            else if (this.item.name.includes('Direct Hit')) item.defindex = 5745;
-            else if (this.item.name.includes('Huntsman')) item.defindex = 5746;
-            else if (this.item.name.includes('Backburner')) item.defindex = 5747;
-            else if (this.item.name.includes('Back Scatter')) item.defindex = 5748;
-            else if (this.item.name.includes('Kritzkrieg')) item.defindex = 5749;
-            else if (this.item.name.includes('Ambassador')) item.defindex = 5750;
-            else if (this.item.name.includes('Frontier Justice')) item.defindex = 5751;
-            else if (this.item.name.includes('Flare Gun')) item.defindex = 5793;
-            else if (this.item.name.includes('Wrench')) item.defindex = 5794;
-            else if (this.item.name.includes('Revolver')) item.defindex = 5795;
-            else if (this.item.name.includes('Machina')) item.defindex = 5796;
-            else if (this.item.name.includes("Baby Face's Blaster")) item.defindex = 5797;
-            else if (this.item.name.includes('Huo-Long Heater')) item.defindex = 5798;
-            else if (this.item.name.includes('Loose Cannon')) item.defindex = 5799;
-            else if (this.item.name.includes('Vaccinator')) item.defindex = 5800;
-            else if (this.item.name.includes('Air Strike')) item.defindex = 5801;
-            else item.defindex = 6527;
+            const baseName = this.item.name.replace('Non-Craftable Killstreak ', '').replace(' Kit', '').trim();
+            item.defindex = killstreakKit.has(baseName) ? killstreakKit.get(baseName) : 6527;
+        } else if (
+            this.item.name.includes('Specialized Killstreak') &&
+            this.item.name.includes('Kit') &&
+            !this.item.name.includes('Professional')
+        ) {
+            // Specialized Killstreak Kit
+            item.defindex = 6523;
+        } else if (
+            this.item.name.includes('Professional Killstreak') &&
+            this.item.name.includes('Kit') &&
+            !this.item.name.includes('Specialized')
+        ) {
+            // Professional Killstreak Kit
+            item.defindex = 6526;
         } else if (this.item.name.includes('Medic Mask')) {
             item.defindex = 272; // 🤷‍♂️
         }
