@@ -113,10 +113,31 @@ class Listing {
             item[attribute] = attributes[attribute];
         }
 
-        if (this.item.name.includes('Chemistry Set')) {
-            if (this.item.name.includes("Collector's Festive") && this.item.name.includes('Chemistry Set')) {
+        // Fix stock defindex
+        if ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes(item.defindex)) {
+            item.defindex += 190;
+        } else if ([10, 11, 12].includes(item.defindex)) {
+            item.defindex = 199;
+        } else if ([13, 14, 15, 16, 17, 18, 19, 20, 21].includes(item.defindex)) {
+            item.defindex += 187;
+        } else if ([22, 23].includes(item.defindex)) {
+            item.defindex = 209;
+        } else if (item.defindex === 24) {
+            item.defindex = 210;
+        } else if (item.defindex === 25) {
+            item.defindex = 737;
+        } else if ([29, 30].includes(item.defindex)) {
+            item.defindex += 182;
+        } else if (item.defindex === 735) {
+            item.defindex = 736;
+        } else if (item.defindex === 1163) {
+            item.defindex = 489;
+        }
+
+        if (this.item.name.includes('Chemistry Set') && this.item.name.includes("Collector's")) {
+            if (this.item.name.includes("Collector's Festive")) {
                 item.defindex = 20007;
-            } else if (this.item.name.includes("Collector's") && this.item.name.includes('Chemistry Set')) {
+            } else if (this.item.name.includes("Collector's")) {
                 item.defindex = 20006;
             } else {
                 item.defindex = 20005;
@@ -136,6 +157,7 @@ class Listing {
             // Killstreak Kit
             const baseName = this.item.name.replace('Non-Craftable Killstreak ', '').replace(' Kit', '').trim();
             item.defindex = killstreakKit.has(baseName) ? killstreakKit.get(baseName) : 6527;
+            item.killstreak = 1;
         } else if (
             this.item.name.includes('Specialized Killstreak') &&
             this.item.name.includes('Kit') &&
@@ -143,6 +165,7 @@ class Listing {
         ) {
             // Specialized Killstreak Kit
             item.defindex = 6523;
+            item.killstreak = 2;
         } else if (
             this.item.name.includes('Professional Killstreak') &&
             this.item.name.includes('Kit') &&
@@ -150,9 +173,12 @@ class Listing {
         ) {
             // Professional Killstreak Kit
             item.defindex = 6526;
+            item.killstreak = 3;
         } else if (this.item.name.includes('Medic Mask')) {
             item.defindex = 272; // 🤷‍♂️
         }
+
+        // TODO: FIX DEFINDEX FOR DECORATED WEAPONS
 
         // Adds default values
         return SKU.fromString(SKU.fromObject(item));
@@ -260,7 +286,8 @@ class Listing {
                 attributes.crateseries = attribute.float_value;
             } else if (attribute.defindex == 2012) {
                 // Target - Unusualifier/Strangifier/Killstreak Kit
-                attributes.target = attribute.float_value;
+                const value = parseInt(attribute.float_value);
+                attributes[value > 6000 && value < 30000 ? 'output' : 'target'] = value;
             } else if (attribute.defindex == 142) {
                 // Painted items, do not apply if it's a Paint Can
                 if (
@@ -298,17 +325,24 @@ class Listing {
                     ].includes(this.item.defindex)
                 ) {
                     attributes.paint = attribute.float_value;
+                    console.log('detected Painted', attributes.paint);
                 }
             } else if (
                 [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007].includes(attribute.defindex) &&
                 attribute.is_output == true
             ) {
                 if (attribute.attributes === undefined) {
-                    // Chemistry Set Collector's - getting output and outputQuality
-                    attributes.output = parseInt(attribute.itemdef);
                     attributes.outputQuality = parseInt(attribute.quality);
+
+                    if (attributes.outputQuality === 14) {
+                        // Chemistry Set Collector's
+                        attributes.output = parseInt(attribute.itemdef);
+                    } else {
+                        // Chemistry Set Strangifier
+                        attributes.target = parseInt(attribute.itemdef);
+                    }
                 } else {
-                    // Chemistry Set Strangifier and Killstreak Fabricator Kit: getting output, outputQuality and target
+                    // Killstreak Fabricator Kit: getting output, outputQuality and target
                     attributes.output = attribute.itemdef;
                     attributes.outputQuality = attribute.quality;
 
