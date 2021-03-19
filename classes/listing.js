@@ -325,7 +325,6 @@ class Listing {
                     ].includes(this.item.defindex)
                 ) {
                     attributes.paint = attribute.float_value;
-                    console.log('detected Painted', attributes.paint);
                 }
             } else if (
                 [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007].includes(attribute.defindex) &&
