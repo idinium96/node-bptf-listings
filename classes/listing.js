@@ -31,6 +31,199 @@ killstreakKit
     .set('Vaccinator', 5800)
     .set('Air Strike', 5801);
 
+const pistolSkins = new Map();
+pistolSkins
+    .set(0, 15013)
+    .set(18, 15018)
+    .set(35, 15035)
+    .set(41, 15041)
+    .set(46, 15046)
+    .set(56, 15056)
+    .set(61, 15061)
+    .set(63, 15060)
+    .set(69, 15100)
+    .set(70, 15101)
+    .set(74, 15102)
+    .set(78, 15126)
+    .set(81, 15148);
+
+const rocketLauncherSkins = new Map();
+rocketLauncherSkins
+    .set(1, 15014)
+    .set(6, 15006)
+    .set(28, 15028)
+    .set(43, 15043)
+    .set(52, 15052)
+    .set(57, 15057)
+    .set(60, 15081)
+    .set(69, 15104)
+    .set(70, 15105)
+    .set(93, 15129)
+    .set(79, 15130)
+    .set(80, 15150);
+
+const medicgunSkins = new Map();
+medicgunSkins
+    .set(2, 15010)
+    .set(5, 15008)
+    .set(25, 15025)
+    .set(39, 15039)
+    .set(50, 15050)
+    .set(65, 15078)
+    .set(72, 15097)
+    .set(93, 15120)
+    .set(78, 15121)
+    .set(79, 15122)
+    .set(81, 15145)
+    .set(83, 15146);
+
+const revolverSkins = new Map();
+revolverSkins
+    .set(3, 15011)
+    .set(27, 15027)
+    .set(42, 15042)
+    .set(51, 15051)
+    .set(63, 15064)
+    .set(64, 15062)
+    .set(65, 15063)
+    .set(72, 15103)
+    .set(93, 15127)
+    .set(77, 15128)
+    .set(81, 15149);
+
+const stickybombSkins = new Map();
+stickybombSkins
+    .set(4, 15012)
+    .set(8, 15009)
+    .set(24, 15024)
+    .set(38, 15038)
+    .set(45, 15045)
+    .set(48, 15048)
+    .set(60, 15082)
+    .set(62, 15083)
+    .set(63, 15084)
+    .set(68, 15113)
+    .set(93, 15137)
+    .set(78, 15138)
+    .set(81, 15155);
+
+const sniperRifleSkins = new Map();
+sniperRifleSkins
+    .set(7, 15007)
+    .set(14, 15000)
+    .set(19, 15019)
+    .set(23, 15023)
+    .set(33, 15033)
+    .set(59, 15059)
+    .set(62, 15070)
+    .set(64, 15071)
+    .set(65, 15072)
+    .set(93, 15135)
+    .set(66, 15111)
+    .set(91, 15112)
+    .set(78, 15136)
+    .set(82, 15154);
+
+const flameThrowerSkins = new Map();
+flameThrowerSkins
+    .set(9, 15005)
+    .set(17, 15017)
+    .set(30, 15030)
+    .set(34, 15034)
+    .set(49, 15049)
+    .set(54, 15054)
+    .set(60, 15066)
+    .set(61, 15068)
+    .set(62, 15067)
+    .set(66, 15089)
+    .set(91, 15090)
+    .set(93, 15115)
+    .set(80, 15141);
+
+const minigunSkins = new Map();
+minigunSkins
+    .set(10, 15004)
+    .set(20, 15020)
+    .set(26, 15026)
+    .set(31, 15031)
+    .set(40, 15040)
+    .set(55, 15055)
+    .set(61, 15088)
+    .set(62, 15087)
+    .set(63, 15086)
+    .set(70, 15098)
+    .set(73, 15099)
+    .set(93, 15123)
+    .set(77, 15125)
+    .set(78, 15124)
+    .set(84, 15147);
+
+const scattergunSkins = new Map();
+scattergunSkins
+    .set(11, 15002)
+    .set(15, 15015)
+    .set(21, 15021)
+    .set(29, 15029)
+    .set(36, 15036)
+    .set(53, 15053)
+    .set(61, 15069)
+    .set(63, 15065)
+    .set(69, 15106)
+    .set(72, 15107)
+    .set(74, 15108)
+    .set(93, 15131)
+    .set(83, 15157)
+    .set(92, 15151);
+
+const shotgunSkins = new Map();
+shotgunSkins
+    .set(12, 15003)
+    .set(16, 15016)
+    .set(44, 15044)
+    .set(47, 15047)
+    .set(60, 15085)
+    .set(72, 15109)
+    .set(93, 15132)
+    .set(78, 15133)
+    .set(86, 15152);
+
+const smgSkins = new Map();
+smgSkins
+    .set(13, 15001)
+    .set(22, 15022)
+    .set(32, 15032)
+    .set(37, 15037)
+    .set(58, 15058)
+    .set(65, 15076)
+    .set(69, 15110)
+    .set(79, 15134)
+    .set(81, 15153);
+
+const wrenchSkins = new Map();
+wrenchSkins.set(60, 15074).set(61, 15073).set(64, 15075).set(75, 15114).set(77, 15140).set(78, 15139).set(82, 15156);
+
+const grenadeLauncherSkins = new Map();
+grenadeLauncherSkins
+    .set(60, 15077)
+    .set(63, 15079)
+    .set(91, 15091)
+    .set(68, 15092)
+    .set(93, 15116)
+    .set(77, 15117)
+    .set(80, 15142)
+    .set(84, 15158);
+
+const knifeSkins = new Map();
+knifeSkins
+    .set(64, 15080)
+    .set(69, 15094)
+    .set(70, 15095)
+    .set(71, 15096)
+    .set(77, 15119)
+    .set(78, 15118)
+    .set(81, 15143)
+    .set(82, 15144);
+
 class Listing {
     /**
      * Creates a new instance of the listing class
@@ -95,7 +288,8 @@ class Listing {
         // Backpack.tf uses item_name for when making listings, meaning that the defindex in some cases is incorrect
 
         const schemaItem = this._manager.schema.getItemByDefindex(item.defindex);
-        const schemaItemByName = this._manager.schema.raw.schema.items.find(
+        const schemaItems = this._manager.schema.raw.schema.items;
+        const schemaItemByName = schemaItems.find(
             v => v.name === schemaItem.item_name && schemaItem.item_quality !== 0
         );
 
@@ -178,7 +372,92 @@ class Listing {
             item.defindex = 272; // 🤷‍♂️
         }
 
-        // TODO: FIX DEFINDEX FOR DECORATED WEAPONS
+        if (item.paintkit && !this.item.name.includes('War Paint')) {
+            const itemName = this.item.name.toLowerCase();
+
+            if (
+                (item.paintkit >= 0 && item.paintkit <= 66) ||
+                (item.paintkit >= 68 && item.paintkit <= 75) ||
+                (item.paintkit >= 77 && item.paintkit <= 84) ||
+                [86, 91, 92, 93].includes(item.paintkit)
+            ) {
+                // Special Skins, but still need to filter because not everything is special
+
+                item.defindex = itemName.includes('pistol')
+                    ? pistolSkins.has(item.paintkit)
+                        ? pistolSkins.get(item.paintkit)
+                        : item.defindex
+                    : itemName.includes('rocket launcher')
+                    ? rocketLauncherSkins.has(item.paintkit)
+                        ? rocketLauncherSkins.get(item.paintkit)
+                        : item.defindex
+                    : itemName.includes('medi gun')
+                    ? medicgunSkins.get(item.paintkit)
+                        ? medicgunSkins.get(item.paintkit)
+                        : item.defindex
+                    : itemName.includes('revolver')
+                    ? revolverSkins.has(item.paintkit)
+                        ? revolverSkins.get(item.paintkit)
+                        : item.defindex
+                    : itemName.includes('stickybomb launcher')
+                    ? stickybombSkins.has(item.paintkit)
+                        ? stickybombSkins.get(item.paintkit)
+                        : item.defindex
+                    : itemName.includes('sniper rifle')
+                    ? sniperRifleSkins.has(item.paintkit)
+                        ? sniperRifleSkins.get(item.paintkit)
+                        : item.defindex
+                    : itemName.includes('flame thrower')
+                    ? flameThrowerSkins.has(item.paintkit)
+                        ? flameThrowerSkins.get(item.paintkit)
+                        : item.defindex
+                    : itemName.includes('minigun')
+                    ? minigunSkins.has(item.paintkit)
+                        ? minigunSkins.get(item.paintkit)
+                        : item.defindex
+                    : itemName.includes('scattergun')
+                    ? scattergunSkins.has(item.paintkit)
+                        ? scattergunSkins.get(item.paintkit)
+                        : item.defindex
+                    : itemName.includes('shotgun')
+                    ? shotgunSkins.has(item.paintkit)
+                        ? shotgunSkins.get(item.paintkit)
+                        : item.defindex
+                    : itemName.includes('smg')
+                    ? smgSkins.has(item.paintkit)
+                        ? smgSkins.get(item.paintkit)
+                        : item.defindex
+                    : itemName.includes('grenade launcher')
+                    ? grenadeLauncherSkins.has(item.paintkit)
+                        ? grenadeLauncherSkins.get(item.paintkit)
+                        : item.defindex
+                    : itemName.includes('wrench')
+                    ? wrenchSkins.has(item.paintkit)
+                        ? wrenchSkins.get(item.paintkit)
+                        : item.defindex
+                    : itemName.includes('knife')
+                    ? knifeSkins.has(item.paintkit)
+                        ? knifeSkins.get(item.paintkit)
+                        : item.defindex
+                    : item.defindex;
+            }
+        }
+
+        if (item.paintkit && this.item.name.includes('War Paint')) {
+            const itemName = `Paintkit ${item.paintkit}`;
+            if (!item.quality) {
+                item.quality = 15;
+            }
+
+            const itemsCount = schemaItems.length;
+
+            for (let i = 0; i < itemsCount; i++) {
+                if (schemaItems[i].name == itemName) {
+                    item.defindex = schemaItems[i].defindex;
+                    break;
+                }
+            }
+        }
 
         // Adds default values
         return SKU.fromString(SKU.fromObject(item));
