@@ -378,8 +378,6 @@ class Listing {
                 item.defindex = 20007;
             } else if (this.item.name.includes("Collector's")) {
                 item.defindex = 20006;
-            } else {
-                item.defindex = 20005;
             }
         } else if (this.item.name.includes('Kit Fabricator')) {
             if (this.item.name.includes('Professional Killstreak') && this.item.name.includes('Kit Fabricator')) {
