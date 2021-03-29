@@ -376,7 +376,7 @@ class Listing {
             ? stockDefindex.get(item.defindex)
             : item.quality === 1 && exclusiveGenuine.has(item.defindex)
             ? exclusiveGenuine.get(item.defindex)
-            : exclusiveGenuineReversed.has(item.defindex)
+            : item.quality !== 1 && exclusiveGenuineReversed.has(item.defindex)
             ? exclusiveGenuineReversed.get(item.defindex)
             : itemName.includes('Medic Mask')
             ? 272
@@ -399,6 +399,7 @@ class Listing {
             !itemName.includes('Specialized');
         const isSkin = item.paintkit && !itemName.includes('War Paint');
         const isWarPaint = item.paintkit && itemName.includes('War Paint');
+        const isStrangifier = itemName.includes('Strangifier') && !itemName.includes('Chemistry Set');
 
         if (
             isCollectorChemistrySet ||
@@ -407,7 +408,8 @@ class Listing {
             isSpecializedKillstreakKit ||
             isProfessionalKillstreakKit ||
             isSkin ||
-            isWarPaint
+            isWarPaint ||
+            isStrangifier
         ) {
             if (isCollectorChemistrySet) {
                 if (itemName.includes("Collector's Festive")) {
@@ -418,9 +420,9 @@ class Listing {
             }
 
             if (isKitFabricator) {
-                if (itemName.includes('Professional Killstreak') && itemName.includes('Kit Fabricator')) {
+                if (itemName.includes('Professional Killstreak')) {
                     item.killstreak = 3;
-                } else if (itemName.includes('Specialized Killstreak') && itemName.includes('Kit Fabricator')) {
+                } else if (itemName.includes('Specialized Killstreak')) {
                     item.killstreak = 2;
                 }
             }
@@ -442,6 +444,20 @@ class Listing {
                 // Professional Killstreak Kit
                 item.defindex = 6526;
                 item.killstreak = 3;
+            }
+
+            if (isStrangifier) {
+                const name = itemName.replace('Strangifier', '').trim();
+
+                const itemsCount = schemaItems.length;
+
+                for (let i = 0; i < itemsCount; i++) {
+                    const it = schemaItems[i];
+                    if (it.name.startsWith(name) && it.name.endsWith(' Strangifier')) {
+                        item.defindex = it.defindex;
+                        break;
+                    }
+                }
             }
 
             if (isSkin) {
@@ -522,8 +538,9 @@ class Listing {
                 const itemsCount = schemaItems.length;
 
                 for (let i = 0; i < itemsCount; i++) {
-                    if (schemaItems[i].name == itemNamePaintKit) {
-                        item.defindex = schemaItems[i].defindex;
+                    const it = schemaItems[i];
+                    if (it.name == itemNamePaintKit) {
+                        item.defindex = it.defindex;
                         break;
                     }
                 }
@@ -692,20 +709,18 @@ class Listing {
                     }
                 } else {
                     // Killstreak Fabricator Kit: getting output, outputQuality and target
-                    attributes.output = attribute.itemdef;
-                    attributes.outputQuality = attribute.quality;
+                    if (attribute.is_output) {
+                        attributes.output = attribute.itemdef;
+                        attributes.outputQuality = attribute.quality;
 
-                    const attributes2 = attribute.attributes;
-                    const attributes2Count = attributes2.length;
+                        const attributes2 = attribute.attributes;
+                        const attributes2Count = attributes2.length;
 
-                    for (let i = 0; i < attributes2Count; i++) {
-                        const attributes2Element = attributes2[i];
-                        if (attributes2Element.defindex == 2012) {
-                            const value = attributes2Element.float_value;
-                            if (typeof value === 'string') {
-                                attributes.target = parseInt(value);
-                            } else {
-                                attributes.target = value;
+                        for (let i = 0; i < attributes2Count; i++) {
+                            const attributes2Element = attributes2[i];
+                            if (attributes2Element.defindex == 2012) {
+                                const value = attributes2Element.float_value;
+                                attributes.target = typeof value === 'string' ? parseInt(value) : value;
                             }
                         }
                     }
