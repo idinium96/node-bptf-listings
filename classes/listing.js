@@ -224,6 +224,67 @@ knifeSkins
     .set(81, 15143)
     .set(82, 15144);
 
+const stockDefindex = new Map();
+stockDefindex
+    .set(0, 190) // Bat
+    .set(1, 191) // Bottle
+    .set(2, 192) // Fireaxe
+    .set(3, 193) // Club
+    .set(4, 194) // Knife
+    .set(5, 195) // Fists
+    .set(6, 196) // Shovel
+    .set(7, 197) // Wrench
+    .set(8, 198) // Bonesaw
+    .set(9, 199) // Shotgun - Engineer (Primary)
+    .set(10, 199) // Shotgun - Soldier
+    .set(11, 199) // Shotgun - Heavy
+    .set(12, 199) // Shotgun - Pyro
+    .set(13, 200) // Scattergun
+    .set(14, 201) // Sniper Rifle
+    .set(15, 202) // Minigun
+    .set(16, 203) // SMG
+    .set(17, 204) // Syringe Gun
+    .set(18, 205) // Rocket Launcher
+    .set(19, 206) // Grenade Launcher
+    .set(20, 207) // Stickybomb Launcher
+    .set(21, 208) // Flamethrower
+    .set(22, 209) // Pistol - Engineer
+    .set(23, 209) // Pistol - Scout
+    .set(24, 210) // Revolver
+    .set(25, 737) // Construction PDA
+    .set(29, 211) // Medigun
+    .set(30, 212) // Invis Watch
+    .set(735, 736) // Sapper
+    .set(1163, 489); // Power Up Canteen
+
+const exclusiveGenuine = new Map();
+exclusiveGenuine
+    .set(810, 831) // Genuine Red-Tape Recorder
+    .set(811, 832) // Genuine Huo-Long Heater
+    .set(812, 833) // Genuine Flying Guillotine
+    .set(813, 834) // Genuine Neon Annihilator
+    .set(814, 835) // Genuine Triad Trinket
+    .set(815, 836) // Genuine Champ Stamp
+    .set(816, 837) // Genuine Marxman
+    .set(817, 838) // Genuine Human Cannonball
+    .set(30720, 30740) // Genuine Arkham Cowl
+    .set(30721, 30741) // Genuine Firefly
+    .set(30724, 30739); // Genuine Fear Monger
+
+const exclusiveGenuineReversed = new Map();
+exclusiveGenuineReversed
+    .set(831, 810) // Red-Tape Recorder
+    .set(832, 811) // Huo-Long Heater
+    .set(833, 812) // Flying Guillotine
+    .set(834, 813) // Neon Annihilator
+    .set(835, 814) // Triad Trinket
+    .set(836, 815) // Champ Stamp
+    .set(837, 816) // Marxman
+    .set(838, 817) // Human Cannonball
+    .set(30740, 30720) // Arkham Cowl
+    .set(30741, 30721) // Firefly
+    .set(30739, 30724); // Fear Monger
+
 class Listing {
     /**
      * Creates a new instance of the listing class
@@ -307,197 +368,164 @@ class Listing {
             item[attribute] = attributes[attribute];
         }
 
-        // Fix stock defindex
-        if ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes(item.defindex)) {
-            item.defindex += 190;
-        } else if ([10, 11, 12].includes(item.defindex)) {
-            item.defindex = 199;
-        } else if ([13, 14, 15, 16, 17, 18, 19, 20, 21].includes(item.defindex)) {
-            item.defindex += 187;
-        } else if ([22, 23].includes(item.defindex)) {
-            item.defindex = 209;
-        } else if (item.defindex === 24) {
-            item.defindex = 210;
-        } else if (item.defindex === 25) {
-            item.defindex = 737;
-        } else if ([29, 30].includes(item.defindex)) {
-            item.defindex += 182;
-        } else if (item.defindex === 735) {
-            item.defindex = 736;
-        } else if (item.defindex === 1163) {
-            item.defindex = 489;
-        } else if (item.defindex === 831 && item.quality !== 1) {
-            // Fix Exclusive Genuine Items (still needed for KS/etc)
-            item.defindex = 810; // Red-Tape Recorder
-        } else if (item.defindex === 810 && item.quality === 1) {
-            item.defindex = 831; // Genuine Red-Tape Recorder
-        } else if (item.defindex === 832 && item.quality !== 1) {
-            item.defindex = 811; // Huo-Long Heater
-        } else if (item.defindex === 811 && item.quality === 1) {
-            item.defindex = 832; // Genuine Huo-Long Heater
-        } else if (item.defindex === 833 && item.quality !== 1) {
-            item.defindex = 812; // Flying Guillotine
-        } else if (item.defindex === 812 && item.quality === 1) {
-            item.defindex = 833; // Genuine Flying Guillotine
-        } else if (item.defindex === 834 && item.quality !== 1) {
-            item.defindex = 813; // Neon Annihilator
-        } else if (item.defindex === 813 && item.quality === 1) {
-            item.defindex = 834; // Genuine Neon Annihilator
-        } else if (item.defindex === 835 && item.quality !== 1) {
-            item.defindex = 814; // Triad Trinket
-        } else if (item.defindex === 814 && item.quality === 1) {
-            item.defindex = 835; // Genuine Triad Trinket
-        } else if (item.defindex === 836 && item.quality !== 1) {
-            item.defindex = 815; // Champ Stamp
-        } else if (item.defindex === 815 && item.quality === 1) {
-            item.defindex = 836; // Genuine Champ Stamp
-        } else if (item.defindex === 837 && item.quality !== 1) {
-            item.defindex = 816; // Marxman
-        } else if (item.defindex === 816 && item.quality === 1) {
-            item.defindex = 837; // Genuine Marxman
-        } else if (item.defindex === 838 && item.quality !== 1) {
-            item.defindex = 817; // Human Cannonball
-        } else if (item.defindex === 817 && item.quality === 1) {
-            item.defindex = 838; // Genuine Human Cannonball
-        } else if (item.defindex === 30740 && item.quality !== 1) {
-            item.defindex = 30720; // Arkham Cowl
-        } else if (item.defindex === 30720 && item.quality === 1) {
-            item.defindex = 30740; // Genuine Arkham Cowl
-        } else if (item.defindex === 30741 && item.quality !== 1) {
-            item.defindex = 30721; // Firefly
-        } else if (item.defindex === 30721 && item.quality === 1) {
-            item.defindex = 30741; // Genuine Firefly
-        } else if (item.defindex === 30739 && item.quality !== 1) {
-            item.defindex = 30724; // Fear Monger
-        } else if (item.defindex === 30724 && item.quality === 1) {
-            item.defindex = 30739; // Genuine Fear Monger
-        }
+        // Fix Defindex for Stock weapons or Exclusive Genuine Items
 
-        if (this.item.name.includes('Chemistry Set') && this.item.name.includes("Collector's")) {
-            if (this.item.name.includes("Collector's Festive")) {
-                item.defindex = 20007;
-            } else if (this.item.name.includes("Collector's")) {
-                item.defindex = 20006;
+        const itemName = this.item.name;
+
+        item.defindex = stockDefindex.has(item.defindex)
+            ? stockDefindex.get(item.defindex)
+            : item.quality === 1 && exclusiveGenuine.has(item.defindex)
+            ? exclusiveGenuine.get(item.defindex)
+            : exclusiveGenuineReversed.has(item.defindex)
+            ? exclusiveGenuineReversed.get(item.defindex)
+            : itemName.includes('Medic Mask')
+            ? 272
+            : item.defindex;
+
+        const isCollectorChemistrySet = itemName.includes('Chemistry Set') && itemName.includes("Collector's");
+        const isKitFabricator = itemName.includes('Kit Fabricator');
+        const isKillstreakKit =
+            itemName.includes('Killstreak') &&
+            itemName.includes('Kit') &&
+            !itemName.includes('Professional') &&
+            !itemName.includes('Specialized');
+        const isSpecializedKillstreakKit =
+            itemName.includes('Specialized Killstreak') &&
+            itemName.includes('Kit') &&
+            !itemName.includes('Professional');
+        const isProfessionalKillstreakKit =
+            itemName.includes('Professional Killstreak') &&
+            itemName.includes('Kit') &&
+            !itemName.includes('Specialized');
+        const isSkin = item.paintkit && !itemName.includes('War Paint');
+        const isWarPaint = item.paintkit && itemName.includes('War Paint');
+
+        if (
+            isCollectorChemistrySet ||
+            isKitFabricator ||
+            isKillstreakKit ||
+            isSpecializedKillstreakKit ||
+            isProfessionalKillstreakKit ||
+            isSkin ||
+            isWarPaint
+        ) {
+            if (isCollectorChemistrySet) {
+                if (itemName.includes("Collector's Festive")) {
+                    item.defindex = 20007;
+                } else if (itemName.includes("Collector's")) {
+                    item.defindex = 20006;
+                }
             }
-        } else if (this.item.name.includes('Kit Fabricator')) {
-            if (this.item.name.includes('Professional Killstreak') && this.item.name.includes('Kit Fabricator')) {
-                item.killstreak = 3;
-            } else if (this.item.name.includes('Specialized Killstreak') && this.item.name.includes('Kit Fabricator')) {
+
+            if (isKitFabricator) {
+                if (itemName.includes('Professional Killstreak') && itemName.includes('Kit Fabricator')) {
+                    item.killstreak = 3;
+                } else if (itemName.includes('Specialized Killstreak') && itemName.includes('Kit Fabricator')) {
+                    item.killstreak = 2;
+                }
+            }
+
+            if (isKillstreakKit) {
+                // Killstreak Kit
+                const baseName = itemName.replace('Non-Craftable Killstreak ', '').replace(' Kit', '').trim();
+                item.defindex = killstreakKit.has(baseName) ? killstreakKit.get(baseName) : 6527;
+                item.killstreak = 1;
+            }
+
+            if (isSpecializedKillstreakKit) {
+                // Specialized Killstreak Kit
+                item.defindex = 6523;
                 item.killstreak = 2;
             }
-        } else if (
-            this.item.name.includes('Killstreak') &&
-            this.item.name.includes('Kit') &&
-            !this.item.name.includes('Professional') &&
-            !this.item.name.includes('Specialized')
-        ) {
-            // Killstreak Kit
-            const baseName = this.item.name.replace('Non-Craftable Killstreak ', '').replace(' Kit', '').trim();
-            item.defindex = killstreakKit.has(baseName) ? killstreakKit.get(baseName) : 6527;
-            item.killstreak = 1;
-        } else if (
-            this.item.name.includes('Specialized Killstreak') &&
-            this.item.name.includes('Kit') &&
-            !this.item.name.includes('Professional')
-        ) {
-            // Specialized Killstreak Kit
-            item.defindex = 6523;
-            item.killstreak = 2;
-        } else if (
-            this.item.name.includes('Professional Killstreak') &&
-            this.item.name.includes('Kit') &&
-            !this.item.name.includes('Specialized')
-        ) {
-            // Professional Killstreak Kit
-            item.defindex = 6526;
-            item.killstreak = 3;
-        } else if (this.item.name.includes('Medic Mask')) {
-            item.defindex = 272; // 🤷‍♂️
-        }
 
-        if (item.paintkit && !this.item.name.includes('War Paint')) {
-            const itemName = this.item.name.toLowerCase();
+            if (isProfessionalKillstreakKit) {
+                // Professional Killstreak Kit
+                item.defindex = 6526;
+                item.killstreak = 3;
+            }
 
-            if (
-                (item.paintkit >= 0 && item.paintkit <= 66) ||
-                (item.paintkit >= 68 && item.paintkit <= 75) ||
-                (item.paintkit >= 77 && item.paintkit <= 84) ||
-                [86, 91, 92, 93].includes(item.paintkit)
-            ) {
-                // Special Skins, but still need to filter because not everything is special
+            if (isSkin) {
+                if (
+                    (item.paintkit >= 0 && item.paintkit <= 66) ||
+                    (item.paintkit >= 68 && item.paintkit <= 75) ||
+                    (item.paintkit >= 77 && item.paintkit <= 84) ||
+                    [86, 91, 92, 93].includes(item.paintkit)
+                ) {
+                    // Special Skins, but still need to filter because not everything is special
 
-                item.defindex = itemName.includes('pistol')
-                    ? pistolSkins.has(item.paintkit)
-                        ? pistolSkins.get(item.paintkit)
-                        : item.defindex
-                    : itemName.includes('rocket launcher')
-                    ? rocketLauncherSkins.has(item.paintkit)
-                        ? rocketLauncherSkins.get(item.paintkit)
-                        : item.defindex
-                    : itemName.includes('medi gun')
-                    ? medicgunSkins.get(item.paintkit)
+                    item.defindex = itemName.includes('Pistol')
+                        ? pistolSkins.has(item.paintkit)
+                            ? pistolSkins.get(item.paintkit)
+                            : item.defindex
+                        : itemName.includes('Rocket Launcher')
+                        ? rocketLauncherSkins.has(item.paintkit)
+                            ? rocketLauncherSkins.get(item.paintkit)
+                            : item.defindex
+                        : itemName.includes('Medi Gun')
                         ? medicgunSkins.get(item.paintkit)
-                        : item.defindex
-                    : itemName.includes('revolver')
-                    ? revolverSkins.has(item.paintkit)
-                        ? revolverSkins.get(item.paintkit)
-                        : item.defindex
-                    : itemName.includes('stickybomb launcher')
-                    ? stickybombSkins.has(item.paintkit)
-                        ? stickybombSkins.get(item.paintkit)
-                        : item.defindex
-                    : itemName.includes('sniper rifle')
-                    ? sniperRifleSkins.has(item.paintkit)
-                        ? sniperRifleSkins.get(item.paintkit)
-                        : item.defindex
-                    : itemName.includes('flame thrower')
-                    ? flameThrowerSkins.has(item.paintkit)
-                        ? flameThrowerSkins.get(item.paintkit)
-                        : item.defindex
-                    : itemName.includes('minigun')
-                    ? minigunSkins.has(item.paintkit)
-                        ? minigunSkins.get(item.paintkit)
-                        : item.defindex
-                    : itemName.includes('scattergun')
-                    ? scattergunSkins.has(item.paintkit)
-                        ? scattergunSkins.get(item.paintkit)
-                        : item.defindex
-                    : itemName.includes('shotgun')
-                    ? shotgunSkins.has(item.paintkit)
-                        ? shotgunSkins.get(item.paintkit)
-                        : item.defindex
-                    : itemName.includes('smg')
-                    ? smgSkins.has(item.paintkit)
-                        ? smgSkins.get(item.paintkit)
-                        : item.defindex
-                    : itemName.includes('grenade launcher')
-                    ? grenadeLauncherSkins.has(item.paintkit)
-                        ? grenadeLauncherSkins.get(item.paintkit)
-                        : item.defindex
-                    : itemName.includes('wrench')
-                    ? wrenchSkins.has(item.paintkit)
-                        ? wrenchSkins.get(item.paintkit)
-                        : item.defindex
-                    : itemName.includes('knife')
-                    ? knifeSkins.has(item.paintkit)
-                        ? knifeSkins.get(item.paintkit)
-                        : item.defindex
-                    : item.defindex;
-            }
-        }
-
-        if (item.paintkit && this.item.name.includes('War Paint')) {
-            const itemName = `Paintkit ${item.paintkit}`;
-            if (!item.quality) {
-                item.quality = 15;
+                            ? medicgunSkins.get(item.paintkit)
+                            : item.defindex
+                        : itemName.includes('Revolver')
+                        ? revolverSkins.has(item.paintkit)
+                            ? revolverSkins.get(item.paintkit)
+                            : item.defindex
+                        : itemName.includes('Stickybomb Launcher')
+                        ? stickybombSkins.has(item.paintkit)
+                            ? stickybombSkins.get(item.paintkit)
+                            : item.defindex
+                        : itemName.includes('Sniper Rifle')
+                        ? sniperRifleSkins.has(item.paintkit)
+                            ? sniperRifleSkins.get(item.paintkit)
+                            : item.defindex
+                        : itemName.includes('Flame Thrower')
+                        ? flameThrowerSkins.has(item.paintkit)
+                            ? flameThrowerSkins.get(item.paintkit)
+                            : item.defindex
+                        : itemName.includes('Minigun')
+                        ? minigunSkins.has(item.paintkit)
+                            ? minigunSkins.get(item.paintkit)
+                            : item.defindex
+                        : itemName.includes('Scattergun')
+                        ? scattergunSkins.has(item.paintkit)
+                            ? scattergunSkins.get(item.paintkit)
+                            : item.defindex
+                        : itemName.includes('Shotgun')
+                        ? shotgunSkins.has(item.paintkit)
+                            ? shotgunSkins.get(item.paintkit)
+                            : item.defindex
+                        : itemName.includes('SMG')
+                        ? smgSkins.has(item.paintkit)
+                            ? smgSkins.get(item.paintkit)
+                            : item.defindex
+                        : itemName.includes('Grenade Launcher')
+                        ? grenadeLauncherSkins.has(item.paintkit)
+                            ? grenadeLauncherSkins.get(item.paintkit)
+                            : item.defindex
+                        : itemName.includes('Wrench')
+                        ? wrenchSkins.has(item.paintkit)
+                            ? wrenchSkins.get(item.paintkit)
+                            : item.defindex
+                        : itemName.includes('Knife')
+                        ? knifeSkins.has(item.paintkit)
+                            ? knifeSkins.get(item.paintkit)
+                            : item.defindex
+                        : item.defindex;
+                }
             }
 
-            const itemsCount = schemaItems.length;
+            if (isWarPaint) {
+                const itemNamePaintKit = `Paintkit ${item.paintkit}`;
+                if (!item.quality) {
+                    item.quality = 15;
+                }
 
-            for (let i = 0; i < itemsCount; i++) {
-                if (schemaItems[i].name == itemName) {
-                    item.defindex = schemaItems[i].defindex;
-                    break;
+                const itemsCount = schemaItems.length;
+
+                for (let i = 0; i < itemsCount; i++) {
+                    if (schemaItems[i].name == itemNamePaintKit) {
+                        item.defindex = schemaItems[i].defindex;
+                        break;
+                    }
                 }
             }
         }
