@@ -387,15 +387,18 @@ class Listing {
         const isKillstreakKit =
             itemName.includes('Killstreak') &&
             itemName.includes('Kit') &&
+            !itemName.includes('Fabricator') &&
             !itemName.includes('Professional') &&
             !itemName.includes('Specialized');
         const isSpecializedKillstreakKit =
             itemName.includes('Specialized Killstreak') &&
             itemName.includes('Kit') &&
+            !itemName.includes('Fabricator') &&
             !itemName.includes('Professional');
         const isProfessionalKillstreakKit =
             itemName.includes('Professional Killstreak') &&
             itemName.includes('Kit') &&
+            !itemName.includes('Fabricator') &&
             !itemName.includes('Specialized');
         const isSkin = item.paintkit && !itemName.includes('War Paint');
         const isWarPaint = item.paintkit && itemName.includes('War Paint');
@@ -421,8 +424,10 @@ class Listing {
 
             if (isKitFabricator) {
                 if (itemName.includes('Professional Killstreak')) {
+                    item.defindex = 20003;
                     item.killstreak = 3;
                 } else if (itemName.includes('Specialized Killstreak')) {
+                    item.defindex = 20002;
                     item.killstreak = 2;
                 }
             }
@@ -709,19 +714,18 @@ class Listing {
                     }
                 } else {
                     // Killstreak Fabricator Kit: getting output, outputQuality and target
-                    if (attribute.is_output) {
-                        attributes.output = attribute.itemdef;
-                        attributes.outputQuality = attribute.quality;
 
-                        const attributes2 = attribute.attributes;
-                        const attributes2Count = attributes2.length;
+                    attributes.output = attribute.itemdef;
+                    attributes.outputQuality = attribute.quality;
 
-                        for (let i = 0; i < attributes2Count; i++) {
-                            const attributes2Element = attributes2[i];
-                            if (attributes2Element.defindex == 2012) {
-                                const value = attributes2Element.float_value;
-                                attributes.target = typeof value === 'string' ? parseInt(value) : value;
-                            }
+                    const attributes2 = attribute.attributes;
+                    const attributes2Count = attributes2.length;
+
+                    for (let i = 0; i < attributes2Count; i++) {
+                        const attributes2Element = attributes2[i];
+                        if (attributes2Element.defindex == 2012) {
+                            const value = attributes2Element.float_value;
+                            attributes.target = typeof value === 'string' ? parseInt(value) : value;
                         }
                     }
                 }
