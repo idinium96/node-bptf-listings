@@ -662,7 +662,8 @@ class ListingManager {
             return;
         }
 
-        const remove = this.actions.remove.concat();
+        const batchSize = this.actions.remove.length > 1000 ? 1000 : this.actions.remove.length;
+        const remove = this.actions.remove.slice(0, batchSize);
 
         const options = {
             method: 'DELETE',
