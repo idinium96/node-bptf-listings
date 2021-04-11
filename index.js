@@ -576,6 +576,7 @@ class ListingManager {
 
         request(options, (err, response, body) => {
             if (err) {
+                this.emit('createListingsError', err);
                 return callback(err);
             }
 
@@ -680,6 +681,7 @@ class ListingManager {
 
         request(options, (err, response, body) => {
             if (err) {
+                this.emit('deleteListingsError', err);
                 return callback(err);
             }
 
