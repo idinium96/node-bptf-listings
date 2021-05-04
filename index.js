@@ -75,34 +75,40 @@ class ListingManager {
             return;
         }
 
-        this._updateListings(err => {
+        this.registerUserAgent(err => {
             if (err) {
                 return callback(err);
             }
 
-            this._updateInventory(() => {
-                this._startTimers();
+            this._updateListings(err => {
+                if (err) {
+                    return callback(err);
+                }
 
-                this.ready = true;
-                this.emit('ready');
+                this._updateInventory(() => {
+                    this._startTimers();
 
-                // Emit listings after initializing
-                this.emit('listings', this.listings);
+                    this.ready = true;
+                    this.emit('ready');
 
-                // Start processing actions if there are any
-                this._processActions();
+                    // Emit listings after initializing
+                    this.emit('listings', this.listings);
 
-                return callback(null);
+                    // Start processing actions if there are any
+                    this._processActions();
+
+                    return callback(null);
+                });
             });
         });
     }
 
     /**
-     * Sends a heartbeat to backpack.tf.
+     * (Re)-register user-agent to backpack.tf.
      * @description Bumps listings and gives you lightning icon on listings if you have set a tradeofferurl in your settings (https://backpack.tf/settings)
      * @param {Function} callback
      */
-    sendHeartbeat(callback) {
+    registerUserAgent(callback) {
         if (!this.token) {
             callback(new Error('No token set (yet)'));
             return;
@@ -110,10 +116,9 @@ class ListingManager {
 
         const options = {
             method: 'POST',
-            url: 'https://backpack.tf/api/aux/heartbeat/v1',
+            url: 'https://backpack.tf/api/agent/pulse',
             qs: {
-                token: this.token,
-                automatic: 'all'
+                token: this.token
             },
             json: true,
             gzip: true
@@ -124,7 +129,44 @@ class ListingManager {
                 return callback(err);
             }
 
-            this.emit('heartbeat', body.bumped);
+            this.emit('pulse', {
+                status: body.status,
+                current_time: body.current_time,
+                expire_at: body.expire_at,
+                client: body.client
+            });
+
+            return callback(null, body);
+        });
+    }
+
+    /**
+     * Unregister user-agent to backpack.tf.
+     * @description Prematurely declare the user as no longer being under control of the user agent. Should be used as part of a clean shutdown.
+     * @param {Function} callback
+     */
+    stopUserAgent(callback) {
+        if (!this.token) {
+            callback(new Error('No token set (yet)'));
+            return;
+        }
+
+        const options = {
+            method: 'POST',
+            url: 'https://backpack.tf/api/agent/stop',
+            qs: {
+                token: this.token
+            },
+            json: true,
+            gzip: true
+        };
+
+        request(options, (err, response, body) => {
+            if (err) {
+                return callback(err);
+            }
+
+            this.emit('pulse', { status: body.status });
 
             return callback(null, body);
         });
@@ -421,12 +463,16 @@ class ListingManager {
     }
 
     /**
-     * Starts heartbeat and inventory timers
+     * Starts user-agent and inventory timers
      */
     _startTimers() {
-        this._heartbeatInterval = setInterval(
+        this._updateListingsInterval = setInterval(
             ListingManager.prototype._updateListings.bind(this, () => {}),
             90000
+        );
+        this._userAgentInterval = setInterval(
+            ListingManager.prototype._renewUserAgent.bind(this, () => {}),
+            420000 // 7 minutes
         );
         this._inventoryInterval = setInterval(
             ListingManager.prototype._updateInventory.bind(this, () => {}),
@@ -440,18 +486,21 @@ class ListingManager {
     shutdown() {
         // Stop timers
         clearTimeout(this._timeout);
-        clearInterval(this._heartbeatInterval);
+        clearInterval(this._updateListingsInterval);
+        clearInterval(this._userAgentInterval);
         clearInterval(this._inventoryInterval);
 
-        // Reset values
-        this.ready = false;
-        this.listings = [];
-        this.cap = null;
-        this.promotes = null;
-        this.actions = { create: [], remove: [] };
-        this._actions = { create: {}, remove: {} };
-        this._lastInventoryUpdate = null;
-        this._createdListingsCount = 0;
+        this.stopUserAgent(() => {
+            // Reset values
+            this.ready = false;
+            this.listings = [];
+            this.cap = null;
+            this.promotes = null;
+            this.actions = { create: [], remove: [] };
+            this._actions = { create: {}, remove: {} };
+            this._lastInventoryUpdate = null;
+            this._createdListingsCount = 0;
+        });
     }
 
     /**
@@ -463,15 +512,29 @@ class ListingManager {
     }
 
     /**
-     * Sends heartbeat and gets listings
+     * Renew user-agent
+     * @param {Function} callback
+     */
+    _renewUserAgent(callback) {
+        async.series(
+            [
+                callback => {
+                    this.registerUserAgent(callback);
+                }
+            ],
+            err => {
+                return callback(err);
+            }
+        );
+    }
+
+    /**
+     * Gets listings
      * @param {Function} callback
      */
     _updateListings(callback) {
         async.series(
             [
-                callback => {
-                    this.sendHeartbeat(callback);
-                },
                 callback => {
                     this.getListings(callback);
                 }
