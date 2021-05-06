@@ -480,7 +480,7 @@ class ListingManager {
         );
         this._userAgentInterval = setInterval(
             ListingManager.prototype._renewUserAgent.bind(this, () => {}),
-            420000 // 7 minutes
+            419000 // 6 minutes, 59 seconds
         );
         this._inventoryInterval = setInterval(
             ListingManager.prototype._updateInventory.bind(this, () => {}),
