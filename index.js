@@ -17,6 +17,7 @@ class ListingManager {
      * @param {Object} options
      * @param {String} options.token The access token of the account being managed
      * @param {String} options.steamid The steamid of the account being managed
+     * @param {String} options.userAgent The User-Agent header to be sent to bptf
      * @param {Number} [options.waitTime=100] Time to wait before processing the queues
      * @param {Number} [options.batchSize=50]
      * @param {Object} options.schema Schema from the tf2-schema module (schemaManager.schema)
@@ -28,6 +29,7 @@ class ListingManager {
 
         this.token = options.token;
         this.steamid = new SteamID(options.steamid);
+        this.userAgent = options.userAgent;
 
         // Time to wait before sending request after enqueing action
         this.waitTime = options.waitTime || 100;
@@ -117,6 +119,9 @@ class ListingManager {
         const options = {
             method: 'POST',
             url: 'https://backpack.tf/api/agent/pulse',
+            headers: {
+                'User-Agent': this.userAgent ? this.userAgent : 'User Agent'
+            },
             qs: {
                 token: this.token
             },
@@ -154,6 +159,9 @@ class ListingManager {
         const options = {
             method: 'POST',
             url: 'https://backpack.tf/api/agent/stop',
+            headers: {
+                'User-Agent': this.userAgent ? this.userAgent : 'User Agent'
+            },
             qs: {
                 token: this.token
             },
