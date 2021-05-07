@@ -2,35 +2,6 @@ const SteamID = require('steamid');
 const Currencies = require('tf2-currencies-2');
 const SKU = require('tf2-sku-2');
 
-const killstreakKit = new Map();
-killstreakKit
-    .set('Rocket Launcher', 5726)
-    .set('Scattergun', 5727)
-    .set('Sniper Rifle', 5728)
-    .set('Shotgun', 5729)
-    .set('Ubersaw', 5730)
-    .set('Gloves of Running Urgently', 5731)
-    .set('Spy-cicle', 5732)
-    .set('Axtinguisher', 5733)
-    .set('Stickybomb Launcher', 5743)
-    .set('Minigun', 5744)
-    .set('Direct Hit', 5745)
-    .set('Huntsman', 5746)
-    .set('Backburner', 5747)
-    .set('Back Scatter', 5748)
-    .set('Kritzkrieg', 5749)
-    .set('Ambassador', 5750)
-    .set('Frontier Justice', 5751)
-    .set('Flare Gun', 5793)
-    .set('Wrench', 5794)
-    .set('Revolver', 5795)
-    .set('Machina', 5796)
-    .set("Baby Face's Blaster", 5797)
-    .set('Huo-Long Heater', 5798)
-    .set('Loose Cannon', 5799)
-    .set('Vaccinator', 5800)
-    .set('Air Strike', 5801);
-
 const pistolSkins = new Map();
 pistolSkins
     .set(0, 15013)
@@ -434,8 +405,7 @@ class Listing {
 
             if (isKillstreakKit) {
                 // Killstreak Kit
-                const baseName = itemName.replace('Non-Craftable Killstreak ', '').replace(' Kit', '').trim();
-                item.defindex = killstreakKit.has(baseName) ? killstreakKit.get(baseName) : 6527;
+                item.defindex = 6527;
                 item.killstreak = 1;
             }
 
