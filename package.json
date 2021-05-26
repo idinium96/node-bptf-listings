@@ -28,9 +28,5 @@
     "tf2-sku-2": "^2.0.1",
     "util": "^0.12.3"
   },
-  "devDependencies": {
-    "eslint": "^6.8.0",
-    "eslint-config-google": "^0.14.0",
-    "nodemon": "^2.0.7"
-  }
+  "devDependencies": {}
 }
