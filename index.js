@@ -2,7 +2,6 @@ const async = require('async');
 const SteamID = require('steamid');
 const request = require('request-retry-dayjs');
 const SKU = require('tf2-sku-2');
-const isObject = require('isobject');
 
 const inherits = require('util').inherits;
 const EventEmitter = require('events').EventEmitter;
@@ -997,3 +996,13 @@ module.exports.Listing = Listing;
 module.exports.EFailiureReason = EFailiureReason;
 
 function noop() {}
+
+/*!
+ * isobject <https://github.com/jonschlinkert/isobject>
+ *
+ * Copyright (c) 2014-2017, Jon Schlinkert.
+ * Released under the MIT License.
+ */
+function isObject(val) {
+    return val != null && typeof val === 'object' && Array.isArray(val) === false;
+};
