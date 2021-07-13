@@ -11,6 +11,7 @@ declare class ListingManager extends EventEmitter {
         token?: string;
         steamid?: string;
         userAgent?: string;
+        userID?: string;
         waitTime?: number;
         batchSize?: number;
         schema?: SchemaManager.Schema;
@@ -43,6 +44,8 @@ declare class ListingManager extends EventEmitter {
     _inventoryInterval: ReturnType<typeof setInterval>;
 
     init(callback: (err: any) => void): void;
+
+    setUserID(userID: string): void;
 
     registerUserAgent(
         callback: (
