@@ -757,40 +757,41 @@ class ListingManager {
             return;
         }
 
-        let options = {};
         const batchSize = this.actions.remove.length > 1000 ? 1000 : this.actions.remove.length;
         const remove = this.actions.remove.slice(0, batchSize);
 
-        if (batchSize === 1) {
-            options = {
-                method: 'DELETE',
-                url: `https://backpack.tf/api/classifieds/listings/${remove[0]}`,
-                headers: {
-                    'User-Agent': this.userAgent ? this.userAgent : 'User Agent',
-                    Cookie: 'user-id=' + this.userID
-                },
-                qs: {
-                    token: this.token
-                }
-            };
-        } else {
-            options = {
-                method: 'DELETE',
-                url: 'https://backpack.tf/api/classifieds/delete/v1',
-                headers: {
-                    'User-Agent': this.userAgent ? this.userAgent : 'User Agent',
-                    Cookie: 'user-id=' + this.userID
-                },
-                qs: {
-                    token: this.token
-                },
-                body: {
-                    listing_ids: remove
-                },
-                json: true,
-                gzip: true
-            };
-        }
+        const options = {
+            method: 'DELETE',
+            url: 'https://backpack.tf/api/classifieds/delete/v1',
+            headers: {
+                'User-Agent': this.userAgent ? this.userAgent : 'User Agent',
+                Cookie: 'user-id=' + this.userID
+            },
+            qs: {
+                token: this.token
+            },
+            body: {
+                listing_ids: remove
+            },
+            json: true,
+            gzip: true
+        };
+
+        // if (batchSize === 1) {
+        //     options = {
+        //         method: 'DELETE',
+        //         url: `https://backpack.tf/api/classifieds/listings/${remove[0]}`,
+        //         headers: {
+        //             'User-Agent': this.userAgent ? this.userAgent : 'User Agent',
+        //             Cookie: 'user-id=' + this.userID
+        //         },
+        //         qs: {
+        //             token: this.token
+        //         }
+        //     };
+        // } else {
+            
+        // }
 
         request(options, (err, response, body) => {
             if (err) {
