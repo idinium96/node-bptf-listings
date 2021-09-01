@@ -771,9 +771,7 @@ class ListingManager {
                 },
                 qs: {
                     token: this.token
-                },
-                json: true,
-                gzip: true
+                }
             };
         } else {
             options = {
@@ -829,9 +827,7 @@ class ListingManager {
             },
             qs: {
                 token: this.token
-            },
-            json: true,
-            gzip: true
+            }
         };
 
         if ([0, 1].includes(intent)) {
