@@ -753,31 +753,50 @@ class ListingManager {
             return;
         }
 
+        let options = {};
         const batchSize = this.actions.remove.length > 1000 ? 1000 : this.actions.remove.length;
         const remove = this.actions.remove.slice(0, batchSize);
 
-        const options = {
-            method: 'DELETE',
-            url: 'https://backpack.tf/api/classifieds/delete/v1',
-            headers: {
-                'User-Agent': this.userAgent ? this.userAgent : 'User Agent',
-                Cookie: 'user-id=' + this.userID
-            },
-            qs: {
-                token: this.token
-            },
-            body: {
-                listing_ids: remove
-            },
-            json: true,
-            gzip: true
-        };
+        if (batchSize === 1) {
+            options = {
+                method: 'DELETE',
+                url: `https://backpack.tf/api/classifieds/listings/${remove[0]}`,
+                headers: {
+                    'User-Agent': this.userAgent ? this.userAgent : 'User Agent',
+                    Cookie: 'user-id=' + this.userID
+                },
+                qs: {
+                    token: this.token
+                },
+                json: true,
+                gzip: true
+            };
+        } else {
+            options = {
+                method: 'DELETE',
+                url: 'https://backpack.tf/api/classifieds/delete/v1',
+                headers: {
+                    'User-Agent': this.userAgent ? this.userAgent : 'User Agent',
+                    Cookie: 'user-id=' + this.userID
+                },
+                qs: {
+                    token: this.token
+                },
+                body: {
+                    listing_ids: remove
+                },
+                json: true,
+                gzip: true
+            };
+        }
 
         request(options, (err, response, body) => {
             if (err) {
                 this.emit('deleteListingsError', err);
                 return callback(err);
             }
+
+            this.emit('deleteListingsSuccessful', response);
 
             // Filter out listings that we just deleted
             this.actions.remove = this.actions.remove.filter(id => remove.indexOf(id) === -1);
@@ -1029,4 +1048,4 @@ function noop() {}
  */
 function isObject(val) {
     return val != null && typeof val === 'object' && Array.isArray(val) === false;
-};
+}

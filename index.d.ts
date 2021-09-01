@@ -87,6 +87,8 @@ declare class ListingManager extends EventEmitter {
     on(event: 'createListingsError', handler: (err: Error) => void): this;
 
     on(event: 'deleteListingsError', handler: (err: Error) => void): this;
+
+    on(event: 'deleteListingsSuccessful', handler: (err: Error) => void): this;
 }
 
 interface Create {
