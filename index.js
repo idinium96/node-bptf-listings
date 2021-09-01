@@ -642,6 +642,8 @@ class ListingManager {
         }
 
         // TODO: Don't send sku and attempt time to backpack.tf
+        // TODO: Use the POST /classifieds/listings endpoint so that we can create specific buy orders (painted/spelled/parts etc)
+        // https://cdn.discordapp.com/attachments/666909760666468377/849319429271191652/Screenshot_137.png
 
         const batch = this.actions.create
             .filter(listing => listing.attempt !== this._lastInventoryUpdate)
