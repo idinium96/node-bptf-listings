@@ -18,7 +18,7 @@ class ListingManager {
      * @param {String} options.steamid The steamid of the account being managed
      * @param {String} options.userAgent The User-Agent header to be sent to bptf
      * @param {String} options.userID The cookie we get from bptf-login-2
-     * @param {Number} [options.waitTime=5000] Time to wait before processing the queues
+     * @param {Number} [options.waitTime=10000] Time to wait before processing the queues
      * @param {Number} [options.batchSize=50]
      * @param {Object} options.schema Schema from the tf2-schema module (schemaManager.schema)
      */
@@ -33,9 +33,9 @@ class ListingManager {
         this.userID = options.userID;
 
         // Time to wait before sending request after enqueing action
-        // Set default to 5 seconds:
+        // Set default to 10 seconds:
         // Update September 1st, 2021: "Request limit exceeded: this endpoint only allows 15 calls per 60 seconds per user account. Try again in x seconds."
-        this.waitTime = options.waitTime || 5000;
+        this.waitTime = options.waitTime || 10000;
         // Amount of listings to create at once
         this.batchSize = options.batchSize || 50;
 
