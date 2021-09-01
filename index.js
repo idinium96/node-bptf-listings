@@ -811,6 +811,42 @@ class ListingManager {
     }
 
     /**
+     * Mass delete all listings
+     * @param {Number} intent - Optionally only delete buy (0) or sell (1) orders
+     * @param {Function} callback
+     */
+    deleteAllListings(intent, callback) {
+        const options = {
+            method: 'DELETE',
+            url: `https://backpack.tf/api/classifieds/listings/`,
+            headers: {
+                'User-Agent': this.userAgent ? this.userAgent : 'User Agent',
+                Cookie: 'user-id=' + this.userID
+            },
+            qs: {
+                token: this.token
+            },
+            json: true,
+            gzip: true
+        };
+
+        if ([0, 1].includes(intent)) {
+            options.body['intent'] = intent;
+        }
+
+        request(options, (err, response, body) => {
+            if (err) {
+                this.emit('deleteListingsError', err);
+                return callback(err);
+            }
+
+            this.emit('massDeleteListings', response);
+
+            return callback(null, body);
+        });
+    }
+
+    /**
      * Formats a listing so that it is ready to be sent to backpack.tf
      * @param {Object} listing
      * @return {Object} listing if formatted correctly, null if not
