@@ -408,9 +408,9 @@ class ListingManager {
 
             // Update cached listing
             for(const key in properties){
-                if(!Object.prototype.hasOwnProperty.call(this.listings[id], key)) return;
+                if(!Object.prototype.hasOwnProperty.call(this._listings[id], key)) return;
                 if(!Object.prototype.hasOwnProperty.call(properties, key)) return;
-                this.listings[id][key] = properties[key];
+                this._listings[id][key] = properties[key];
             }
         });
     }
@@ -834,7 +834,7 @@ class ListingManager {
         //         }
         //     };
         // } else {
-            
+
         // }
 
         request(options, (err, response, body) => {
