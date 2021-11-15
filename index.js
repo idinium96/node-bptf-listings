@@ -400,17 +400,16 @@ class ListingManager {
                 this.emit('updateListingsError', err);
                 return callback(err);
             }
-
             this.emit('updateListingsSuccessful', response);
 
-            // Filter out listings that we just deleted
-            this.actions.remove = this.actions.remove.filter(id => remove.indexOf(id) === -1);
-
-            // Update cached listing
-            for(const key in properties){
-                if(!Object.prototype.hasOwnProperty.call(this._listings[id], key)) return;
-                if(!Object.prototype.hasOwnProperty.call(properties, key)) return;
-                this._listings[id][key] = properties[key];
+            const index = this.listings.findIndex((listing) => listing.id===id);
+            if(index >= 0) {
+                for(const key in properties){
+                    if(!Object.prototype.hasOwnProperty.call(this.listings[index], key)) return;
+                    if(!Object.prototype.hasOwnProperty.call(properties, key)) return;
+                    this.listings[index][key] = properties[key];
+                }
+                this._listings[this.listings[index].intent == 0 ? this.listings[index].getName() : this.listings[index].item.id] = this.listings[index];
             }
         });
     }
