@@ -1,6 +1,6 @@
 {
   "name": "bptf-listings-2",
-  "version": "3.2.0",
+  "version": "3.3.0",
   "description": "Manage listings on backpack.tf, originally made by Nicklason, modified by IdiNium.",
   "main": "index.js",
   "scripts": {
