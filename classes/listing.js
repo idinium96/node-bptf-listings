@@ -541,38 +541,12 @@ class Listing {
     /**
      * Changes specific properties and adds the job to the queue
      * @param {Object} properties
-     * @param {Object} [properties.currencies]
+     * @param {Object} [properties.currencies] currencies
      * @param {String} [properties.details]
-     * @param {Boolean} [properties.offers]
-     * @param {Boolean} [properties.buyout]
+     * @param {Number} [properties.quantity]
      */
     update(properties) {
-        if (properties.time === undefined) {
-            return;
-        }
-
-        const listing = {
-            time: properties.time,
-            intent: this.intent
-        };
-
-        if (this.intent === 0) {
-            listing.sku = this.getSKU();
-            listing.promoted = 0;
-        } else {
-            listing.id = this.item.id;
-            listing.promoted = this.item.promoted;
-        }
-
-        ['currencies', 'details', 'offers', 'buyout'].forEach(property => {
-            if (properties[property] === undefined) {
-                listing[property] = this[property];
-            } else {
-                listing[property] = properties[property];
-            }
-        });
-
-        this._manager.createListing(listing, true);
+        this._manager.updateListing(this.id, properties);
     }
 
     /**

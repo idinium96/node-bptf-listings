@@ -372,6 +372,49 @@ class ListingManager {
     }
 
     /**
+     * Enqueues a list of listings to be made
+     * @param {String} id listing ID
+     * @param {Object} properties properties
+     */
+    updateListing(id, properties) {
+        if (!this.ready) {
+            throw new Error('Module has not been successfully initialized');
+        }
+        const options = {
+            method: "PATCH",
+            url: `https://backpack.tf/api/v2/classifieds/listings/${id}`,
+            headers: {
+                'User-Agent': this.userAgent ? this.userAgent : 'User Agent',
+                Cookie: 'user-id=' + this.userID
+            },
+            qs: {
+                token: this.token
+            },
+            body: properties,
+            json: true,
+            gzip: true
+        };
+
+        request(options, (err, response, body) => {
+            if (err) {
+                this.emit('updateListingsError', err);
+                return callback(err);
+            }
+            this.emit('updateListingsSuccessful', response);
+
+            const index = this.listings.findIndex((listing) => listing.id===id);
+            if(index >= 0) {
+                for(const key in properties){
+                    if(!Object.prototype.hasOwnProperty.call(this.listings[index], key)) return;
+                    if(!Object.prototype.hasOwnProperty.call(properties, key)) return;
+                    this.listings[index][key] = properties[key];
+                }
+                this._listings[this.listings[index].intent == 0 ? this.listings[index].getName() : this.listings[index].item.id] = this.listings[index];
+            }
+        });
+    }
+
+    /**
      * Enqueus a list of listings or listing ids to be removed
      * @param {Array<Object>|Array<String>} listings
      */
@@ -790,7 +833,7 @@ class ListingManager {
         //         }
         //     };
         // } else {
-            
+
         // }
 
         request(options, (err, response, body) => {

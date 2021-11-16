@@ -171,12 +171,9 @@ declare namespace ListingManager {
         getName(): string;
 
         update(properties: {
-            time: number;
             currencies?: TF2Currencies;
             details?: string;
-            promoted?: 0 | 1;
-            offers?: boolean;
-            buyout?: boolean;
+            quantity?: number;
         }): void;
 
         remove(): void;
